@@ -1,5 +1,5 @@
 # app
-about Property Management of residence
+about management for circle
 
 ## 建立一个vue-cli的模板，用vant组件完成app
 npm install --global vue-cli
@@ -8,4 +8,5 @@ cd '项目名称'
 npm install
 npm i vant -S
 npm run dev
+
 
