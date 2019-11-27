@@ -1,6 +1,10 @@
 <template>
   <div>
-    h
+    <!-- 标题栏 -->
+    <van-nav-bar
+      title="首页"
+      fixed
+    />
   </div>
 </template>
 
@@ -11,7 +15,10 @@ export default {
     return {
 
     }
-  }
+  },
+  created() {
+
+    }
 }
 </script>
 

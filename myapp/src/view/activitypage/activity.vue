@@ -1,6 +1,10 @@
 <template>
   <div>
-    a
+    <!-- 标题栏 -->
+    <van-nav-bar
+      title="活动"
+      fixed
+    />
   </div>
 </template>
 

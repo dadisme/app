@@ -4,6 +4,8 @@ import Home from '@/view/homePage/home.vue'
 import Life from '@/view/lifePage/life.vue'
 import Activity from '@/view/activityPage/activity.vue'
 import Mine from '@/view/minePage/mine.vue'
+import Login from '@/view/loginPage/login.vue'
+import Register from '@/view/registerPage/register.vue'
 
 
 Vue.use(Router)
@@ -29,6 +31,16 @@ export default new Router({
       path: '/Mine',
       name: 'Mine',
       component: Mine
+    },
+    {
+      path: '/Login',
+      name: 'Login',
+      component: Login
+    },
+    {
+      path: '/Register',
+      name: 'Register',
+      component: Register
     }
   ]
 })
