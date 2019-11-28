@@ -5,6 +5,9 @@
       title="生活"
       fixed
     />
+    <div class="content">
+      
+    </div>
   </div>
 </template>
 
@@ -20,5 +23,12 @@ export default {
 </script>
 
 <style scoped>
-
+.content{
+  background-color: #DFE1E6;
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  left: 0;
+  top: 0;
+}
 </style>

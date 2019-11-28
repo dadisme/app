@@ -2,7 +2,7 @@
   <div>
     <van-tabbar route active-color="#07c160">
       <van-tabbar-item
-        to="/Home"
+        to="/"
         icon="home-o"
       >
         首页
