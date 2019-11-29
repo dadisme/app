@@ -51,7 +51,7 @@ export default {
   background-color: #DFE1E6;
   width: 100%;
   height: 100%;
-  position: absolute;
+  position: relative;
   left: 0;
   top: 0;
 }

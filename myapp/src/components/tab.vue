@@ -16,6 +16,7 @@
       <van-tabbar-item
         to="/Activity"
         icon="comment-circle-o"
+        info="5"
       >
         活动
       </van-tabbar-item>

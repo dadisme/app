@@ -6,7 +6,10 @@
       fixed
     />
     <div class="content">
-      
+      <ul>
+        <li></li>
+        <li></li>
+      </ul>
     </div>
   </div>
 </template>
@@ -22,13 +25,22 @@ export default {
 }
 </script>
 
-<style scoped>
+<style scoped lang="scss">
 .content{
   background-color: #DFE1E6;
   width: 100%;
   height: 100%;
-  position: absolute;
+  position: relative;
   left: 0;
   top: 0;
+}
+ul{
+  margin: 46px 12px 40px 12px;
+  li{
+    background-color: red;
+    width: 100%;
+    height: 400px;
+    margin: 12px 0;
+  }
 }
 </style>
