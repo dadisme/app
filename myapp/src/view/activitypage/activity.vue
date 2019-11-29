@@ -9,6 +9,10 @@
       <ul>
         <li></li>
         <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
       </ul>
     </div>
   </div>
@@ -39,8 +43,8 @@ ul{
   li{
     background-color: red;
     width: 100%;
-    height: 400px;
-    margin: 12px 0;
+    height: 200px;
+    margin-bottom: 12px;
   }
 }
 </style>
