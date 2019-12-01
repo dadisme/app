@@ -36,10 +36,11 @@ export default {
   height: 100%;
   position: relative;
   left: 0;
-  top: 0;
+  top: -14px;
 }
 ul{
-  margin: 46px 12px 40px 12px;
+  margin: 0 12px 62px 12px;
+  padding-bottom: 12px;
   li{
     background-color: red;
     width: 100%;

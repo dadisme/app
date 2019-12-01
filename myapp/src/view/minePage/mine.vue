@@ -9,7 +9,7 @@
     <div class="content">
       <div class="column-login">
         <span class="w">
-          <img src="../../img/tx/tx.png">
+          <img src="../../assets/img/tx/tx.png">
           <router-link to="/Login">{{userName}}</router-link>
         </span>
       </div>
@@ -51,7 +51,7 @@ export default {
   background-color: #DFE1E6;
   width: 100%;
   height: 100%;
-  position: relative;
+  position: absolute;
   left: 0;
   top: 0;
 }
