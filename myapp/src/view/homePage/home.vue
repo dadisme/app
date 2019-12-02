@@ -101,13 +101,13 @@ img{
 }
 .index-board{
   text-align: left;
-  margin-bottom: 62px;
+  margin-bottom: 50px;
   span{
     width: 100%;
     font-weight: 600;
   }
   ul{
-    padding-bottom: 12px;
+    padding-bottom: 1px;
     li{
       width: 100%;
       height: 100px;

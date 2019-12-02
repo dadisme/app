@@ -35,12 +35,18 @@ export default new Router({
     {
       path: '/Login',
       name: 'Login',
-      component: Login
+      component: Login,
+      meta: {
+        fullScreen: true
+      }
     },
     {
       path: '/Register',
       name: 'Register',
-      component: Register
+      component: Register,
+      meta: {
+        fullScreen: true
+      }
     }
   ]
 })

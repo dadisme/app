@@ -39,8 +39,8 @@ export default {
   top: -14px;
 }
 ul{
-  margin: 0 12px 62px 12px;
-  padding-bottom: 12px;
+  margin: 46px 12px 50px 12px;
+  padding-bottom: 1px;
   li{
     background-color: red;
     width: 100%;
