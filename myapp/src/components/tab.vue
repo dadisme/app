@@ -14,11 +14,11 @@
         生活
       </van-tabbar-item>
       <van-tabbar-item
-        to="/Activity"
+        to="/Notice"
         icon="comment-circle-o"
         info="5"
       >
-        活动
+        公告
       </van-tabbar-item>
       <van-tabbar-item
         to="/Mine"

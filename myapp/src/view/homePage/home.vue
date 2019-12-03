@@ -14,17 +14,17 @@
         </van-swipe>
       </div>
       <van-grid class="index-icon">
-        <van-grid-item icon="star-o" text="水费" class="star-o" />
-        <van-grid-item icon="bulb-o" text="电费" class="bulb-o" />
-        <van-grid-item icon="fire-o" text="气费" class="fire-o" />
-        <van-grid-item icon="smile-o" text="物业费" class="smile-o" />
-        <van-grid-item icon="replay" text="报修申请" class="replay" />
-        <van-grid-item icon="friends-o" text="家政管理" class="friends-o" />
+        <van-grid-item icon="star-o" text="水费" class="star-o" to="/waterRate" />
+        <van-grid-item icon="bulb-o" text="电费" class="bulb-o" to="/electricRate" />
+        <van-grid-item icon="fire-o" text="气费" class="fire-o" to="/gasRate" />
+        <van-grid-item icon="smile-o" text="物业费" class="smile-o" to="/propertyRate" />
+        <van-grid-item icon="replay" text="报修申请" class="replay" to="/repairsApply" />
+        <van-grid-item icon="friends-o" text="家政管理" class="friends-o" to="/houseManager" />
         <van-grid-item icon="comment-circle-o" text="活动" to="/Activity" class="comment-circle-o" />
         <van-grid-item icon="plus" text="更多" to="/Life"/>
       </van-grid>
       <div class="index-board">
-        <span>小区公告</span>
+        <span>小区活动</span>
         <ul>
           <li>
             <span>关于双十一快递</span>

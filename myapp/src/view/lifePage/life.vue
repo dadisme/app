@@ -8,29 +8,29 @@
     <div class="content">
       <van-grid class="life-icon">
         <span>生活缴费</span>
-        <van-grid-item icon="star-o" text="水费" class="star-o" />
-        <van-grid-item icon="bulb-o" text="电费" class="bulb-o" />
-        <van-grid-item icon="fire-o" text="气费" class="fire-o" />
-        <van-grid-item icon="smile-o" text="物业费" class="smile-o" />
+        <van-grid-item icon="star-o" text="水费" class="star-o" to="/waterRate" />
+        <van-grid-item icon="bulb-o" text="电费" class="bulb-o" to="/electricRate" />
+        <van-grid-item icon="fire-o" text="气费" class="fire-o" to="/gasRate" />
+        <van-grid-item icon="smile-o" text="物业费" class="smile-o" to="/propertyRate" />
       </van-grid>
       <van-grid class="life-icon">
         <span>物业管理</span>
-        <van-grid-item icon="replay" text="报修申请" class="replay" />
-        <van-grid-item icon="friends-o" text="家政管理" class="friends-o" />
+        <van-grid-item icon="replay" text="报修申请" class="replay" to="/repairsApply" />
+        <van-grid-item icon="friends-o" text="家政管理" class="friends-o" to="/houseManager" />
         <van-grid-item />
         <van-grid-item />
       </van-grid>
       <van-grid class="life-icon">
         <span>我的房子</span>
-        <van-grid-item icon="flower-o" text="小区介绍" class="flower-o" />
-        <van-grid-item icon="user-o" text="业主信息" class="user-o" />
-        <van-grid-item icon="wap-home-o" text="房屋信息" class="wap-home-o" />
-        <van-grid-item icon="manager-o" text="负责人信息" class="manager-o" />
+        <van-grid-item icon="flower-o" text="小区介绍" class="flower-o" to="/aboutPublic" />
+        <van-grid-item icon="user-o" text="业主信息" class="user-o" to="/aboutUser" />
+        <van-grid-item icon="wap-home-o" text="房屋信息" class="wap-home-o" to="/aboutHouse" />
+        <van-grid-item icon="manager-o" text="负责人信息" class="manager-o" to="/aboutManager" />
       </van-grid>
       <van-grid class="life-icon">
         <span>精彩社区</span>
-        <van-grid-item icon="comment-circle-o" text="活动" class="comment-circle-o" />
-        <van-grid-item icon="records" text="物业投诉" class="records" />
+        <van-grid-item icon="comment-circle-o" text="活动" class="comment-circle-o" to="/Activity" />
+        <van-grid-item icon="records" text="物业投诉" class="records" to="/propertyComplain" />
         <van-grid-item />
         <van-grid-item />
       </van-grid>
