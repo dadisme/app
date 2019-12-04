@@ -27,9 +27,9 @@
         <van-grid-item icon="wap-home-o" text="房屋信息" class="wap-home-o" to="/aboutHouse" />
         <van-grid-item icon="manager-o" text="负责人信息" class="manager-o" to="/aboutManager" />
       </van-grid>
-      <van-grid class="life-icon">
+      <van-grid class="life-icon last">
         <span>精彩社区</span>
-        <van-grid-item icon="comment-circle-o" text="活动" class="comment-circle-o" to="/Activity" />
+        <van-grid-item icon="comment-circle-o" text="公告" class="comment-circle-o" to="/Notice" />
         <van-grid-item icon="records" text="物业投诉" class="records" to="/propertyComplain" />
         <van-grid-item />
         <van-grid-item />
@@ -63,16 +63,20 @@ export default {
   text-align: left;
   span{
     font-weight: 500;
-    font-size: 20px;
+    font-size: 18px;
     width: 100%;
     background-color: #fff;
-    height: 56px;
-    line-height: 56px;
+    height: 52px;
+    line-height: 52px;
     padding: 0 12px;
   }
 }
 .life-icon:first-child{
   margin-top: 46px;
+}
+.last{
+  margin-bottom: 46px;
+  padding-bottom: 1px;
 }
 .star-o{
   color: #1400ff;

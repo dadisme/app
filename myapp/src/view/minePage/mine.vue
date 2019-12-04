@@ -14,15 +14,14 @@
         </span>
       </div>
       <div class="user-homemess">
-        <van-cell value="小区介绍" to="/Login"/>
-        <van-cell value="业主信息" />
-        <van-cell value="房屋信息" />
-        <van-cell value="负责人信息" />
+        <van-cell value="小区介绍" to="/aboutPublic" />
+        <van-cell value="业主信息" to="/aboutUser" />
+        <van-cell value="房屋信息" to="/aboutHouse" />
+        <van-cell value="负责人信息" to="/aboutManager" />
       </div>
       <div class="user-take">
         <van-cell value="修改账号" />
-        <van-cell value="查看订阅" />
-        <van-cell value="提出意见" />
+        <van-cell value="提出意见" to="/propertyComplain" />
         <van-cell value="报名活动" />
       </div>
       <div class="init">
@@ -53,7 +52,7 @@ export default {
   height: 100%;
   position: absolute;
   left: 0;
-  top: 0;
+  top: -14px;
 }
 .w{
   margin: 0 12px;
