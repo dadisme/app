@@ -29,7 +29,7 @@
             <van-button size="large" class="recharge">缴费</van-button>
             <p class="message"><van-icon name="warning" class="warning" />温馨提示</p>
             <p class="message">经过反复测算研究，参照本市同行业商业物业费收费的标准，集合广大业主的意见和建议，物业费的收费标准如下</p>
-            <p class="message">小区物业费0.55元/㎡。</p>
+            <p class="message">小区物业费1.60元/㎡。</p>
         </div>
     </div>
 </template>

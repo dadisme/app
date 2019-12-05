@@ -18,8 +18,8 @@ import aboutHouse from '@/view/aboutHouse/aboutHouse.vue'
 import aboutManager from '@/view/aboutManager/aboutManager.vue'
 import propertyComplain from '@/view/propertyComplain/propertyComplain.vue'
 import noticeMessage from '@/view/notice/notice.vue'
-
-
+import Reset from '@/view/resetPage/resetPage.vue'
+import Warning from '@/view/warningPage/warningPage.vue'
 
 
 
@@ -66,6 +66,14 @@ export default new Router({
       path: '/Login',
       name: 'Login',
       component: Login,
+      meta: {
+        fullScreen: true
+      }
+    },
+    {
+      path: '/Reset',
+      name: 'Reset',
+      component: Reset,
       meta: {
         fullScreen: true
       }
@@ -162,6 +170,14 @@ export default new Router({
       path: '/propertyComplain',
       name: 'propertyComplain',
       component: propertyComplain,
+      meta: {
+        fullScreen: true
+      } 
+    },
+    {
+      path: '/Warning',
+      name: 'Warning',
+      component: Warning,
       meta: {
         fullScreen: true
       } 

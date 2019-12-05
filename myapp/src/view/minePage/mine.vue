@@ -14,18 +14,18 @@
         </span>
       </div>
       <div class="user-homemess">
-        <van-cell value="小区介绍" to="/aboutPublic" />
-        <van-cell value="业主信息" to="/aboutUser" />
-        <van-cell value="房屋信息" to="/aboutHouse" />
-        <van-cell value="负责人信息" to="/aboutManager" />
+        <van-cell title="小区介绍" is-link to="/aboutPublic" icon="flower-o" class="flower-o" />
+        <van-cell title="业主信息" is-link to="/aboutUser" icon="user-o" class="user-o" />
+        <van-cell title="房屋信息" is-link to="/aboutHouse" icon="wap-home-o" class="wap-home-o" />
+        <van-cell title="负责人信息" is-link to="/aboutManager" icon="manager-o" class="manager-o" />
       </div>
       <div class="user-take">
-        <van-cell value="修改账号" />
-        <van-cell value="提出意见" to="/propertyComplain" />
-        <van-cell value="报名活动" />
+        <van-cell title="修改账号" is-link to="/Reset" icon="brush-o" class="brush-o" />
+        <van-cell title="提出意见" is-link to="/propertyComplain" icon="records" class="records" />
+        <van-cell title="报名活动" is-link icon="flag-o" class="flag-o" />
       </div>
       <div class="init">
-        <van-cell value="注意" />
+        <van-cell title="注意" is-link to="/Warning" icon="warning-o" class="warning-o" />
       </div>
     </div>
   </div>
@@ -85,5 +85,35 @@ export default {
 }
 .user-take{
   margin-bottom: 12px;
+}
+div{
+  text-align: left;
+}
+span{
+  color: #2c3e50;
+}
+.manager-o{
+  color: #1f69c4;
+}
+.wap-home-o{
+  color: #a43504;
+}
+.user-o{
+  color: #e40937;
+}
+.flower-o{
+  color: #09e466;
+}
+.records{
+  color: #ff0000;
+}
+.warning-o{
+  color: #ff0000;
+}
+.flag-o{
+  color: #49045a;
+}
+.brush-o{
+  color: #083268;
 }
 </style>

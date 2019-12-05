@@ -1,17 +1,14 @@
 <template>
     <div>
         <van-nav-bar
-            title="房屋信息"
+            title="注意"
             left-text="返回"
             left-arrow
             @click-left="onClickLeft"
         />
         <div class="content">
             <div class="w">
-                <p>住址：</p>
-                <p>建筑面积：</p>
-                <p>公摊面积：</p>
-                <p>实际使用面积：</p>
+                
             </div>  
         </div>
     </div>
@@ -39,11 +36,5 @@ export default {
   left: 0;
   top: 0;
 }
-.w{
-    margin: 58px 12px 0 12px;
-    text-align: left;
-}
-p{
-    font-size: 20px;
-}
+
 </style>
