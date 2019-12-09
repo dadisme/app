@@ -41,6 +41,7 @@
                         @cancel="cancel"
                     />
                 </van-popup>
+                <van-button size="large" class="recharge">提交</van-button>
             </div>
         </div>
     </div>
@@ -137,5 +138,16 @@ export default {
 p{
     text-align: left;
     margin: 6px 0;
+}
+.recharge{
+    color: #fff;
+    background-color: #1fc461;
+    margin: 12px 0 12px 0;
+}
+.van-tree-select__item--active{
+    color: #1fc461;
+}
+.van-sidebar-item--select{
+    border-color: #1fc461;
 }
 </style>

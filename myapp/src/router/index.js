@@ -20,7 +20,7 @@ import propertyComplain from '@/view/propertyComplain/propertyComplain.vue'
 import noticeMessage from '@/view/notice/notice.vue'
 import Reset from '@/view/resetPage/resetPage.vue'
 import Warning from '@/view/warningPage/warningPage.vue'
-
+import NotFound from '@/view/NotFound/NotFound.vue'
 
 
 
@@ -181,6 +181,14 @@ export default new Router({
       meta: {
         fullScreen: true
       } 
+    },
+    {
+      path: '*',
+      name: 'Notfound',
+      component: NotFound,
+      meta: {
+        fullScreen: true
+      }
     }
   ]
 })

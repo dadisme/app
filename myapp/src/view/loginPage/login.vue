@@ -23,19 +23,21 @@
   </transition>
 </template>
 <script>
+import { nameCheck, pwdCheck } from '@/util/util';
+import { login } from '@/api/api';
 export default {
     data() {
         return {
-            userName: 'zhaolin',
-            password: '123456',
+            userName: '',
+            password: '',
             userNameErr: '',
             passwordErr: '',
             loading: false,
             redirect: this.$route.query.redirect
         }
     },
-    methods: {
-        mounted() {
+    mounted() {
+            console.log(this.$route);
             if (this.redirect) {
                 Toast({
                     position: 'bottom',
@@ -43,20 +45,13 @@ export default {
                 });
             }
         },
-        boundMine() {
-            this.$router.push({
-                name: 'Mine',
-                query: {
-                    id: this.userName
-                }
-            })
-        },
+    methods: {
         login() {
             this.userNameErr = '';
             this.passwordErr = '';
             this.loading = true;
-            if (!emailCheck(this.userName)) {
-                this.userNameErr = '邮箱格式不正确';
+            if (!nameCheck(this.userName)) {
+                this.userNameErr = '姓名格式不正确';
                 this.loading = false;
                 return;
             }
@@ -65,11 +60,16 @@ export default {
                 this.loading = false;
                 return;
             }
-            login({ userName: this.userName, password: MD5(this.password).toString() })
+            login({ userName: this.userName, password: (this.password).toString() })
                 .then(res => {
                 if (res.status === 200) {
                     this.loading = false;
-                    this.$router.push('/');
+                    this.$router.push({
+                    name: 'Mine',
+                    query: {
+                        id: this.userName
+                    }
+                })
                 } else {
                     this.loading = false;
                     Toast.fail(res.msg);
