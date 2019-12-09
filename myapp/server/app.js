@@ -19,6 +19,19 @@ app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
+app.all('*', function(req, res, next) {
+  res.header('Access-Control-Allow-Origin', 'http://127.0.0.1:8080');
+  res.header('Access-Control-Allow-Headers', 'X-Requested-With,Content-Type');
+  res.header('Access-Control-Allow-Methods', 'PUT,POST,GET,DELETE,OPTIONS');
+  res.header('Content-Type', 'application/json;charset=utf-8');
+  res.header('Access-Control-Allow-Credentials', true);
+  if (req.method == 'OPTIONS') {
+    res.send(200);
+  } else {
+    next();
+  }
+});
+
 app.use('/', indexRouter);
 app.use('/users', usersRouter);
 
