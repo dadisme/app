@@ -32,6 +32,24 @@ app.all('*', function(req, res, next) {
   }
 });
 
+app.use(function(req, res, next) {
+  console.log(req)
+  if (req.cookies.username) {
+    next();
+  } else {
+    var url = req.originalUrl;
+    if (
+      url === '/Login' 
+    ) {
+      next();
+    } else {
+      res.status(401).json({
+        value: '401'
+      });
+    }
+  }
+});
+
 app.use('/', indexRouter);
 app.use('/users', usersRouter);
 

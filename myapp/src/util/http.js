@@ -4,7 +4,7 @@ import axios from 'axios';
 import router from '@/router';
 
 // 环境的切换
-  axios.defaults.baseURL = '/api';
+  axios.defaults.baseURL = 'http://localhost:3000';
 
 // 超时时间
 axios.defaults.timeout = 10000;

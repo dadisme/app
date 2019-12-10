@@ -25,6 +25,7 @@
 <script>
 import { nameCheck, pwdCheck } from '@/util/util';
 import { login } from '@/api/api';
+import { Toast } from 'vant';
 export default {
     data() {
         return {
@@ -60,7 +61,7 @@ export default {
                 this.loading = false;
                 return;
             }
-            login({ userName: this.userName, password: (this.password).toString() })
+            login({ userName: this.userName, password: this.password })
                 .then(res => {
                 if (res.status === 200) {
                     this.loading = false;
@@ -76,13 +77,10 @@ export default {
                 }
                 })
                 .catch(error => {
-                Toast.fail(error);
-                this.loading = false;
+                    Toast.fail(error);
+                    this.loading = false;
                 });
         }
-        // reg() {
-        // this.$router.push('/reg');
-        // }
     }
 }
 </script>

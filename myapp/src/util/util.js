@@ -6,7 +6,7 @@ export function emailCheck(email) {
   return true;
 }
 export function nameCheck(name) {
-  var namereg = /^[\u4e00-\u9fa5]{2,N}/;
+  var namereg = /^[\u4e00-\u9fa5]{2,4}/;
   if (!namereg.test(name)) {
     return false;
   }
@@ -14,7 +14,7 @@ export function nameCheck(name) {
 }
 
 export function pwdCheck(pwd) {
-  var pwdreg = /^[a-zA-Z]\w{5,17}$/;
+  var pwdreg = /^\d{6}$/;
   if (!pwdreg.test(pwd)) {
     return false;
   }
@@ -23,6 +23,13 @@ export function pwdCheck(pwd) {
 export function phoneNumCheck(phoneNUm) {
   var phoneNumreg = /^[1][3,4,5,7,8][0-9]{9}$/;
   if (!phoneNumreg.test(phoneNUm)) {
+    return false;
+  }
+  return true;
+}
+export function addressCheck(address) {
+  var addressreg = /[旌城上品][1-8][栋][1-9][0][1,2][号]$/;
+  if (!addressreg.test(address)) {
     return false;
   }
   return true;
