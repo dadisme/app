@@ -55,6 +55,7 @@ router.post('/Reg', function(req, res, next) {
   var userEmail = req.body.userEmail;
   var userTele = req.body.userTele;
   var password = req.body.password;
+  var userAddress = req.body.userAddress;
   var sql = 'SELECT * FROM users WHERE username=?';
   var sqlParams = [userName];
   connection.query(sql, sqlParams, function(err, result) {
@@ -74,8 +75,8 @@ router.post('/Reg', function(req, res, next) {
       });
       return;
     }
-    sql = 'INSERT INTO users(username,userpwd,useremail,usertele) VALUES(?,?,?,?)';
-    sqlParams = [userName, password,userEmail,userTele];
+    sql = 'INSERT INTO users(username,userpwd,useremail,usertele,userAddress) VALUES(?,?,?,?,?)';
+    sqlParams = [userName, password,userEmail,userTele,userAddress];
     connection.query(sql, sqlParams, function(err, result) {
       if (err) {
         res.json({
@@ -93,5 +94,41 @@ router.post('/Reg', function(req, res, next) {
     });
   });
 });
-
+//修改
+router.post('/Reset', function(req, res, next) {
+  var userName = req.body.userName;
+  var password = req.body.password;
+  var userTel = req.body.userTel;
+  var sql = 'SELECT * FROM users WHERE username=?';
+  var sqlParams = [userName];
+  connection.query(sql, sqlParams, function(err, result) {
+    if (err) {
+      res.json({
+        status: 500,
+        msg: err,
+        data: ''
+      });
+      return;
+    }
+    if (result.length) {
+      sql = `UPDATE users SET userpwd=? And usertele=?  WHERE username=?`;
+      sqlParams = [password, userTel, userName];
+      connection.query(sql, sqlParams, function(err, result) {
+        if (err) {
+          res.json({
+            status: 500,
+            msg: err,
+            data: ''
+          });
+          return;
+        }
+        res.json({
+          status: 200,
+          msg: 'success',
+          data: ''
+        });
+      });
+    }
+  });
+});
 module.exports = router;

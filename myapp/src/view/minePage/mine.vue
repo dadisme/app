@@ -10,7 +10,7 @@
       <div class="column-login">
         <span class="w">
           <img src="../../assets/img/tx/tx.png">
-          <router-link to="/Login">{{userName}}</router-link>
+          <router-link to="/Login">{{this.id||this.$store.state.username||this.userName}}</router-link>
         </span>
       </div>
       <div class="user-homemess">
@@ -37,10 +37,21 @@ export default {
   data () {
     return {
       userName: '',
+      id: ''
     }
   },
   created() {
-    this.$route.query.id ? this.userName = this.$route.query.id:this.userName = '请登录';
+    if(this.$route.query.id) {
+      this.id = this.$route.query.id;
+      this.userName = '';
+      sessionStorage.setItem('name', this.id);
+    }else{
+      this.id = '';
+      this.userName = '请登录';
+    }
+  },
+  mounted() {
+    this.$store.state.username = sessionStorage.getItem('name');
   }
 }
 </script>

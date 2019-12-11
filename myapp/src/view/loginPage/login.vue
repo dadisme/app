@@ -66,10 +66,10 @@ export default {
                 if (res.status === 200) {
                     this.loading = false;
                     this.$router.push({
-                    name: 'Mine',
-                    query: {
-                        id: this.userName
-                    }
+                        name: 'Mine',
+                        query: {
+                            id: this.userName
+                        }
                 })
                 } else {
                     this.loading = false;

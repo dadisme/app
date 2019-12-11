@@ -1,6 +1,8 @@
 <template>
   <div id="app">
-    <router-view/>
+    <keep-alive include="Home,Life,Notice">
+      <router-view/>
+    </keep-alive>
     <v-tab v-show="!$route.meta.fullScreen" />
   </div>
 </template>
@@ -11,6 +13,14 @@ export default {
   name: 'App',
   components: {
     'v-tab': Tab
+  },
+  data() {
+    return {
+      
+    }
+  },
+  mounted() {
+    
   }
 }
 </script>

@@ -22,40 +22,42 @@
   </transition>
 </template>
 <script>
+import {  pwdCheck, phoneNumCheck } from '@/util/util';
+import { reset } from '@/api/api';
+import { Toast } from 'vant';
 export default {
     data() {
         return {
-            userName: 'zhaolin',
-            password: '123456',
+            userName: '',
+            userTel: '',
+            password: '',
+            passwordRep: '',
             userNameErr: '',
+            userTelErr: '',
             passwordErr: '',
+            passwordRepErr: '',
             loading: false,
             redirect: this.$route.query.redirect
         }
     },
+    mounted() {
+        this.userName = this.$store.state.username;
+        if (this.redirect) {
+            Toast({
+                position: 'bottom',
+                message: '未登录或登陆过期，请重新登陆~'
+            });
+        }
+    },
     methods: {
-        mounted() {
-            if (this.redirect) {
-                Toast({
-                    position: 'bottom',
-                    message: '未登录或登陆过期，请重新登陆~'
-                });
-            }
-        },
-        boundMine() {
-            this.$router.push({
-                name: 'Mine',
-                query: {
-                    id: this.userName
-                }
-            })
-        },
         login() {
             this.userNameErr = '';
+            this.userTelErr = '';
             this.passwordErr = '';
+            this.passwordRepErr = '';
             this.loading = true;
-            if (!emailCheck(this.userName)) {
-                this.userNameErr = '邮箱格式不正确';
+            if (!phoneNumCheck(this.userTel)) {
+                this.userTelErr = '电话格式不正确';
                 this.loading = false;
                 return;
             }
@@ -64,11 +66,21 @@ export default {
                 this.loading = false;
                 return;
             }
-            login({ userName: this.userName, password: MD5(this.password).toString() })
+            if (this.password !== this.passwordRep) {
+                this.passwordRepErr = '两次密码不一致';
+                this.loading = false;
+                return;
+            }
+            reset({ userName: this.userName, password: this.password, userTel:this.userTel })
                 .then(res => {
+                    console.log(res)
                 if (res.status === 200) {
                     this.loading = false;
-                    this.$router.push('/');
+                    Toast.success('跳转登陆界面');
+                        setTimeout(() => {
+                        Toast.clear();
+                        this.$router.push('Login');
+                        }, 1000);
                 } else {
                     this.loading = false;
                     Toast.fail(res.msg);
