@@ -8,20 +8,40 @@
         />
         <div class="content">
             <div class="w">
-                <p>住址：</p>
-                <p>建筑面积：</p>
-                <p>公摊面积：</p>
-                <p>实际使用面积：</p>
+                <p>姓名：{{userName}}</p>
+                <p>住址：{{userAddress}}</p>
+                <p>建筑面积：{{coverArea}}平方米</p>
+                <p>公摊面积：{{publicArea}}平方米</p>
+                <p>实际使用面积：{{coverArea-publicArea}}平方米</p>
             </div>  
         </div>
     </div>
 </template>
 <script>
+import { aboutHouse } from '@/api/api';
+import { Toast } from 'vant';
 export default {
     data() {
         return{
-
+            userName: '',
+            userAddress: '',
+            coverArea: '',
+            publicArea: ''
         }
+    },
+    mounted() {
+        aboutHouse({userName: this.$store.state.username})
+            .then(res => {
+                if(res.status == 200){
+                    this.userName = res.data[0].username;
+                    this.userAddress = res.data[0].useraddress;
+                    this.coverArea = res.data[0].coverarea;
+                    this.publicArea = res.data[0].publicarea;
+                }
+            })
+            .catch(error => {
+                Toast.fail(error);
+            })
     },
     methods: {
         onClickLeft() {

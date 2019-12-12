@@ -111,7 +111,7 @@ router.post('/Reset', function(req, res, next) {
       return;
     }
     if (result.length) {
-      sql = `UPDATE users SET userpwd=? And usertele=?  WHERE username=?`;
+      sql = `UPDATE users SET userpwd=?,usertele=?  WHERE username=?`;
       sqlParams = [password, userTel, userName];
       connection.query(sql, sqlParams, function(err, result) {
         if (err) {
@@ -130,5 +130,71 @@ router.post('/Reset', function(req, res, next) {
       });
     }
   });
+});
+//关于业主
+router.post('/aboutUser',function(req,res,next){
+  var userName = req.body.userName;
+  var sql = 'SELECT * FROM users WHERE username=?';
+  var sqlParams = [userName];
+  connection.query(sql, sqlParams, function(err, result) {
+    if (err) {
+      res.json({
+        status: 500,
+        msg: err,
+        data: ''
+      });
+      return;
+    }
+    if(result.length){
+      res.json({
+        status: 200,
+        data: result
+      })
+    }
+  })
+});
+//关于房屋
+router.post('/aboutHouse',function(req,res,next){
+  var userName = req.body.userName;
+  var sql = 'SELECT * FROM users WHERE username=?';
+  var sqlParams = [userName];
+  connection.query(sql, sqlParams, function(err, result) {
+    if (err) {
+      res.json({
+        status: 500,
+        msg: err,
+        data: ''
+      });
+      return;
+    }
+    if(result.length){
+      res.json({
+        status: 200,
+        data: result
+      })
+    }
+  })
+});
+//关于管理员
+router.post('/aboutManager',function(req,res,next){
+  var userName = req.body.userName;
+  var sql = 'SELECT * FROM users WHERE username=?';
+  var sqlParams = [userName];
+  connection.query(sql, sqlParams, function(err, result) {
+    if (err) {
+      res.json({
+        status: 500,
+        msg: err,
+        data: ''
+      });
+      return;
+    }
+    if(result.length){
+      res.json({
+        status: 200,
+        data: result
+      })
+    }
+  })
 });
 module.exports = router;

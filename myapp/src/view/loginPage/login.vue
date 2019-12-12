@@ -4,7 +4,7 @@
             <h1>登陆</h1>
             <van-cell-group class="login-from">
                 <van-field v-model="userName" clearable border label="姓名" placeholder="请输入您的真实姓名" :error-message="userNameErr" />
-                <van-field v-model="password" clearable border type="password" label="密码" placeholder="请输入密码" :error-message="passwordErr" />
+                <van-field v-model="password" clearable border type="password" label="密码" placeholder="请输入六位数字密码" :error-message="passwordErr" />
                 <div class="repairs">
                     <router-link to="/Reset">忘记密码？</router-link>
                 </div>

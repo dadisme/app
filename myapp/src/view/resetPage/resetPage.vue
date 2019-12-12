@@ -5,8 +5,8 @@
             <van-cell-group class="login-from">
                 <van-field v-model="userName" clearable border label="姓名" placeholder="请输入您的真实姓名" :error-message="userNameErr" />
                 <van-field v-model="userTel" clearable border label="联系方式" placeholder="请输入您小区注册的号码" :error-message="userTelErr" />
-                <van-field v-model="password" clearable border type="password" label="密码" placeholder="请输入密码" :error-message="passwordErr" />
-                <van-field v-model="passwordRep" clearable border type="password" label="重复密码" placeholder="请再次输入密码" :error-message="passwordRepErr" />    
+                <van-field v-model="password" clearable border type="password" label="密码" placeholder="请输入六位数字密码" :error-message="passwordErr" />
+                <van-field v-model="passwordRep" clearable border type="password" label="重复密码" placeholder="请再次输入六位数字密码" :error-message="passwordRepErr" />    
                 <van-cell>
                     <van-row>
                         <van-col span="12" class="btn">

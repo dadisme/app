@@ -8,21 +8,52 @@
         />
         <div class="content">
             <div class="w">
-                <p>姓名：</p>
-                <p>地址：</p>
-                <p>电话：</p>
-                <p>是否入住：</p>
-                <p>入住时间：</p>
+                <p>姓名：{{userName}}</p>
+                <p>地址：{{userAddress}}</p>
+                <p>电话：{{userTele}}</p>
+                <p>邮箱：{{userEmail}}</p>
+                <p>是否入住：{{isCheck}}</p>
+                <p v-if="show">入住时间：{{checkTime}}</p>
             </div>  
         </div>
     </div>
 </template>
 <script>
+import { aboutUser } from '@/api/api';
+import { Toast } from 'vant';
 export default {
     data() {
         return{
-
+            userName: '',
+            userAddress: '',
+            userTele: '',
+            userEmail: '',
+            isCheck: '',
+            checkTime: '',
+            show: ''
         }
+    },
+    mounted() {
+        aboutUser({userName: this.$store.state.username})
+            .then(res => {
+                if(res.status == 200){
+                    this.userName = res.data[0].username;
+                    this.userAddress = res.data[0].useraddress;
+                    this.userTele = res.data[0].usertele;
+                    this.checkTime = res.data[0].checktime;
+                    this.userEmail = res.data[0].useremail;
+                    if(res.data[0].ischeck == 1){
+                        this.isCheck = '是';
+                        this.show = 1;
+                    }else{
+                        this.isCheck = '否';
+                        this.show = 0;
+                    }
+                }
+            })
+            .catch(error => {
+                Toast.fail(error);
+            })
     },
     methods: {
         onClickLeft() {
