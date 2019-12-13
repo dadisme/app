@@ -9,12 +9,13 @@
         <div class="content">
             <div class="w">
                 <textarea rows="16" cols="47" placeholder="请输入您的意见或者建议" border v-model="advice"></textarea>
-                <van-button size="large" class="recharge">提交</van-button>
+                <van-button size="large" class="recharge" @click="complain">提交</van-button>
             </div>  
         </div>
     </div>
 </template>
 <script>
+import { Dialog } from 'vant';
 export default {
     data() {
         return{
@@ -25,6 +26,18 @@ export default {
         onClickLeft() {
             this.$router.back();
         },
+        complain (){
+            if(this.advice) {
+                console.log('111');
+            }else {
+                Dialog.alert({
+                    title: '提示',
+                    message: '请填写内容！'
+                }).then(() => {
+                // on close
+                });
+            }
+        }
     },
 }
 </script>

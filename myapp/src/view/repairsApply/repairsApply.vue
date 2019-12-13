@@ -9,7 +9,7 @@
         <div class="content">
             <div class="w">
                 <textarea rows="16" cols="47" placeholder="请简述您要报修的情况" border v-model="place"></textarea>
-                <van-button size="large" class="recharge">通知物业</van-button>
+                <van-button size="large" class="recharge" @click="repairsApply">通知物业</van-button>
                 <p class="message"><van-icon name="warning" class="warning" />温馨提示</p>
                 <p class="message">通知物业后，稍后会有工作人员及时联系您询问报修的情况并确认上门时间。</p>
                 <p class="message">如果事发紧急也可以直接拨打物业电话：030-8075462</p>
@@ -18,6 +18,7 @@
     </div>
 </template>
 <script>
+import { Dialog } from 'vant';
 export default {
     data() {
         return{
@@ -28,6 +29,18 @@ export default {
         onClickLeft() {
             this.$router.back();
         },
+        repairsApply (){
+            if(this.place) {
+                console.log('111');
+            }else {
+                Dialog.alert({
+                    title: '提示',
+                    message: '请填写内容！'
+                }).then(() => {
+                // on close
+                });
+            }
+        }
     },
 }
 </script>

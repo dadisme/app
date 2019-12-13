@@ -23,6 +23,7 @@
         <van-cell title="修改账号" is-link to="/Reset" icon="brush-o" class="brush-o" />
         <van-cell title="提出意见" is-link to="/propertyComplain" icon="records" class="records" />
         <van-cell title="报名活动" is-link icon="flag-o" class="flag-o" />
+        <van-cell title="绑定银行卡" is-link icon="balance-o" class="balance-o" to="/bindCard"/>
       </div>
       <div class="init">
         <van-cell title="注意" is-link to="/Warning" icon="warning-o" class="warning-o" />
@@ -126,5 +127,8 @@ span{
 }
 .brush-o{
   color: #083268;
+}
+.balance-o{
+  color: #ff0000;
 }
 </style>

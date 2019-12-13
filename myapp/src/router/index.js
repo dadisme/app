@@ -21,6 +21,10 @@ import noticeMessage from '@/view/notice/notice.vue'
 import Reset from '@/view/resetPage/resetPage.vue'
 import Warning from '@/view/warningPage/warningPage.vue'
 import NotFound from '@/view/NotFound/NotFound.vue'
+import bindCard from '@/view/bindCard/bindCard.vue'
+import addCard from '@/view/bindCard/addCard.vue'
+
+
 
 
 
@@ -91,7 +95,8 @@ export default new Router({
       name: 'waterRate',
       component: waterRate,
       meta: {
-        fullScreen: true
+        fullScreen: true,
+        requireAuth: true
       }
     },
     {
@@ -99,7 +104,8 @@ export default new Router({
       name: 'electricRate',
       component: electricRate,
       meta: {
-        fullScreen: true
+        fullScreen: true,
+        requireAuth: true
       }
     },
     {
@@ -107,7 +113,8 @@ export default new Router({
       name: 'gasRate',
       component: gasRate,
       meta: {
-        fullScreen: true
+        fullScreen: true,
+        requireAuth: true
       }
     },
     {
@@ -115,7 +122,8 @@ export default new Router({
       name: 'propertyRate',
       component: propertyRate,
       meta: {
-        fullScreen: true
+        fullScreen: true,
+        requireAuth: true
       }
     },
     {
@@ -123,7 +131,8 @@ export default new Router({
       name: 'repairsApply',
       component: repairsApply,
       meta: {
-        fullScreen: true
+        fullScreen: true,
+        requireAuth: true
       }
     },
     {
@@ -131,7 +140,8 @@ export default new Router({
       name: 'houseManager',
       component: houseManager,
       meta: {
-        fullScreen: true
+        fullScreen: true,
+        requireAuth: true
       }
     },
     {
@@ -139,7 +149,7 @@ export default new Router({
       name: 'aboutPublic',
       component: aboutPublic,
       meta: {
-        fullScreen: true
+        fullScreen: true,
       }
     },
     {
@@ -147,7 +157,8 @@ export default new Router({
       name: 'aboutUser',
       component: aboutUser,
       meta: {
-        fullScreen: true
+        fullScreen: true,
+        requireAuth: true
       }
     },
     {
@@ -155,7 +166,8 @@ export default new Router({
       name: 'aboutHouse',
       component: aboutHouse,
       meta: {
-        fullScreen: true
+        fullScreen: true,
+        requireAuth: true
       }
     },
     {
@@ -163,7 +175,8 @@ export default new Router({
       name: 'aboutManager',
       component: aboutManager,
       meta: {
-        fullScreen: true
+        fullScreen: true,
+        requireAuth: true
       }
     },
     {
@@ -171,7 +184,8 @@ export default new Router({
       name: 'propertyComplain',
       component: propertyComplain,
       meta: {
-        fullScreen: true
+        fullScreen: true,
+        requireAuth: true
       } 
     },
     {
@@ -179,7 +193,26 @@ export default new Router({
       name: 'Warning',
       component: Warning,
       meta: {
-        fullScreen: true
+        fullScreen: true,
+        requireAuth: true
+      } 
+    },
+    {
+      path: '/bindCard',
+      name: 'bindCard',
+      component: bindCard,
+      meta: {
+        fullScreen: true,
+        requireAuth: true
+      } 
+    },
+    {
+      path: '/bindCard/addCard',
+      name: 'addCard',
+      component: addCard,
+      meta: {
+        fullScreen: true,
+        requireAuth: true
       } 
     },
     {

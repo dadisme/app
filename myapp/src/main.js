@@ -11,6 +11,24 @@ Vue.config.productionTip = false
 
 Vue.use(Vant);
 
+
+router.beforeEach((to, from, next) => {
+  if (to.meta.requireAuth) { // 判断该路由是否需要登录权限
+    if(sessionStorage.getItem('name')){ //判断本地是否存在
+      next();
+    }else {
+     if(to.path === '/Login'){
+        next();
+      }else {
+        next({
+          path:'/Login'
+        })
+      }
+    }
+  }else {
+    next();
+  }
+});
 /* eslint-disable no-new */
 new Vue({
   el: '#app',

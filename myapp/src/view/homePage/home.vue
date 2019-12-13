@@ -20,7 +20,7 @@
         <van-grid-item icon="smile-o" text="物业费" class="smile-o" to="/propertyRate" />
         <van-grid-item icon="replay" text="报修申请" class="replay" to="/repairsApply" />
         <van-grid-item icon="friends-o" text="家政管理" class="friends-o" to="/houseManager" />
-        <van-grid-item icon="comment-circle-o" text="活动" to="/Activity" class="comment-circle-o" />
+        <van-grid-item icon="comment-circle-o" text="公告" to="/Notice" class="comment-circle-o" />
         <van-grid-item icon="plus" text="更多" to="/Life"/>
       </van-grid>
       <div class="index-board">

@@ -50,22 +50,39 @@
                 </div>               
             </div>
             <p class="money">充值金额：{{nowMoney}}</p>
-            <van-button size="large" class="recharge">充值</van-button>
+            <van-button size="large" class="recharge" @click="payforElectric">充值</van-button>
             <p class="message"><van-icon name="warning" class="warning" />温馨提示</p>
             <p class="message">根据国家发展改革委印发《关于居民生活用电试行阶梯电价的指导意见的通知》，调整后的居民用户每月用电量划分为3档，电价施行分档递增。</p>
             <p class="message">第一档：电量每户每月210度及以下的用户电价不变，执行每度0.5469元。</p>
             <p class="message">第二档：电量每户每月210-400度之间的用户将在第一档电价基础上每度加价0.05元，为0.5969元。</p>
             <p class="message">第三档：电量每户每月400度以上的用户将在第一档电价基础上每度加价0.3元，为0.8469元。</p>
         </div>
+        <van-popup v-model="show" position="bottom" closeable class="popup">
+            <!-- 密码输入框 -->
+            <van-password-input
+            :value="value"
+            border
+            />
+            <!-- 数字键盘 -->
+            <van-number-keyboard
+            :show="showKeyboard"
+            @input="onInput"
+            @delete="onDelete"
+            />
+        </van-popup>
     </div>
 </template>
 <script>
+import { Dialog } from 'vant';
 export default {
     data() {
         return{
             waterMoney: '',
             waterCustom: '',
-            nowMoney: ''
+            nowMoney: '',
+            show: false,
+            showKeyboard: true,
+            value: '',
         }
     },
     methods: {
@@ -97,6 +114,31 @@ export default {
                     break;
             }
             this.nowMoney = num;
+        },
+        payforElectric (){
+            if(this.nowMoney) {
+                this.showPopup();
+            }else {
+                Dialog.alert({
+                    title: '提示',
+                    message: '请选择您充值的数字！'
+                }).then(() => {
+                // on close
+                });
+            }
+        },
+        showPopup() {
+            this.show = true;
+            this.value = '';
+        },
+        onInput(key) {
+            this.value = (this.value + key).slice(0, 6);
+            if(this.value.length == 6) {
+                console.log(this.value);
+            }
+        },
+        onDelete() {
+            this.value = this.value.slice(0, this.value.length - 1);
         }
     }
 }
@@ -153,5 +195,8 @@ p{
 .message{
     color: #A1A6B3;
     font-size: 12px;
+}
+.popup{
+    height: 40%;
 }
 </style>
