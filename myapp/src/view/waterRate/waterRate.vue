@@ -8,11 +8,11 @@
         />
         <div class="content">
             <div class="w">
-                <p>地址:</p>
-                <p>用户:</p>
-                <p>用水量:</p>
-                <p>剩余水量:</p>
-                <p>余额:</p>
+                <p>地址:&nbsp;&nbsp;&nbsp;{{this.userAddress}}</p>
+                <p>用户:&nbsp;&nbsp;&nbsp;{{this.$store.state.username}}</p>
+                <p>用水量:&nbsp;&nbsp;&nbsp;{{this.num}}立方米</p>
+                <p>剩余水量:&nbsp;&nbsp;&nbsp;{{this.surplus}}立方米</p>
+                <p>余额:&nbsp;&nbsp;&nbsp;{{this.money}}元</p>
                 <div>
                     <van-grid :column-num="3">
                             <van-grid-item
@@ -53,9 +53,7 @@
             <van-button size="large" class="recharge" @click="payforWater">充值</van-button>
             <p class="message"><van-icon name="warning" class="warning" />温馨提示</p>
             <p class="message">根据税务局通知，为了促进节约用水，现将本小区水价调整后明细如下，用户月用水量划分为3档，水价施行分档递增。</p>
-            <p class="message">第一档：居民用水：由2.225元/立方米调整为2.455元/立方米。</p>
-            <p class="message">第二档：非居民用水：由2.7445元/立方米调整为2.917元/立方米。</p>
-            <p class="message">第三档：特种用水：由3.837元/立方米调整为4.987元/立方米。</p>
+            <p class="message">居民用水：2.5元/立方米。</p>
         </div>
         <van-popup v-model="show" position="bottom" closeable class="popup">
             <!-- 密码输入框 -->
@@ -73,6 +71,8 @@
     </div>
 </template>
 <script>
+import { aboutUser, waterRate } from '@/api/api';
+import { Toast } from 'vant';
 import { Dialog } from 'vant';
 export default {
     data() {
@@ -83,7 +83,30 @@ export default {
             show: false,
             showKeyboard: true,
             value: '',
+            num: '',
+            money: '',
+            userAddress: '',
+            surplus: ''
         }
+    },
+    mounted() {
+        waterRate({username: this.$store.state.username})
+            .then(res => {
+                if(res.status == 200){
+                    this.userAddress = res.address;
+                    this.num = res.result[0].num;
+                    this.money = res.result[0].money;
+                    if(this.money >= 0) {
+                        let all = this.money/2.5;
+                        if(all > this.num ) {
+                            this.surplus = all - this.num;
+                        }
+                    }
+                }
+            })
+            .catch(error => {
+                Toast.fail(error);
+            })
     },
     methods: {
         onClickLeft() {
@@ -134,7 +157,12 @@ export default {
         onInput(key) {
             this.value = (this.value + key).slice(0, 6);
             if(this.value.length == 6) {
-                console.log(this.value);
+                if(this.value == '111111') {
+                    waterRate({username: this.$store.state.username, value:this.value })
+                        .then(res => {
+                            Toast.success('充值成功');
+                        })
+                }
             }
         },
         onDelete() {

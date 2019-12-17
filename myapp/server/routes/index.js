@@ -197,4 +197,66 @@ router.post('/aboutManager',function(req,res,next){
     }
   })
 });
+
+//水费
+router.post('/waterRate',function(req,res,next) {
+  var userName = req.body.username;
+  var value = req.body.value;
+  var sql1 = 'SELECT * FROM users WHERE username=?';
+  var sqlParams = [userName];
+  connection.query(sql1,sqlParams,function(err,result) {
+    if (err) {
+      res.json({
+        status: 500,
+        msg: err,
+        data: ''
+      });
+      return;
+    }
+    if(result.length) {
+      var address = result[0].useraddress;
+      var sql2 = 'SELECT * FROM water WHERE username=?';
+      connection.query(sql2,sqlParams,function(err,result){
+        if (err) {
+          res.json({
+            status: 500,
+            msg: err,
+            data: ''
+          });
+          return;
+        }
+        if(result.length) {
+          var money = result[0].money;
+          res.json({
+            status: 200,
+            address: address,
+            result: result,
+          })
+          if(value) {
+            var money = money + value;
+            var sqlv = `UPDATE water SET money=?  WHERE username=?`;
+            var sqlParamsv = [money, userName];
+            connection.query(sqlv,sqlParamsv,function(err,result) {
+              if (err) {
+                res.json({
+                  status: 500,
+                  msg: err,
+                  data: ''
+                });
+                return;
+              }
+              if(result) {
+                res.json({
+                  status: 200,
+                  msg: 'success',
+                  data: ''
+                });
+              }
+            })
+          }
+        }
+      })
+    }
+  })
+});
 module.exports = router;

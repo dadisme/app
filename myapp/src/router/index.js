@@ -79,7 +79,8 @@ export default new Router({
       name: 'Reset',
       component: Reset,
       meta: {
-        fullScreen: true
+        fullScreen: true,
+        requireAuth: true
       }
     },
     {
@@ -193,8 +194,7 @@ export default new Router({
       name: 'Warning',
       component: Warning,
       meta: {
-        fullScreen: true,
-        requireAuth: true
+        fullScreen: true
       } 
     },
     {
