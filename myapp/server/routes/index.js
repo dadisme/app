@@ -38,7 +38,9 @@ router.post('/Login', function(req, res, next) {
       res.json({
         status: 200,
         msg: 'success',
-        data: ''
+        data: '',
+        address: result[0].useraddress,
+        coverarea: result[0].coverarea
       });
     } else {
       res.json({
@@ -197,66 +199,273 @@ router.post('/aboutManager',function(req,res,next){
     }
   })
 });
-
 //水费
 router.post('/waterRate',function(req,res,next) {
   var userName = req.body.username;
   var value = req.body.value;
-  var sql1 = 'SELECT * FROM users WHERE username=?';
   var sqlParams = [userName];
-  connection.query(sql1,sqlParams,function(err,result) {
-    if (err) {
-      res.json({
-        status: 500,
-        msg: err,
-        data: ''
-      });
-      return;
-    }
-    if(result.length) {
-      var address = result[0].useraddress;
-      var sql2 = 'SELECT * FROM water WHERE username=?';
-      connection.query(sql2,sqlParams,function(err,result){
-        if (err) {
-          res.json({
-            status: 500,
-            msg: err,
-            data: ''
-          });
-          return;
-        }
-        if(result.length) {
-          var money = result[0].money;
-          res.json({
-            status: 200,
-            address: address,
-            result: result,
-          })
-          if(value) {
-            var money = money + value;
-            var sqlv = `UPDATE water SET money=?  WHERE username=?`;
-            var sqlParamsv = [money, userName];
-            connection.query(sqlv,sqlParamsv,function(err,result) {
-              if (err) {
-                res.json({
-                  status: 500,
-                  msg: err,
-                  data: ''
-                });
-                return;
-              }
-              if(result) {
-                res.json({
-                  status: 200,
-                  msg: 'success',
-                  data: ''
-                });
-              }
-            })
-          }
-        }
-      })
-    }
-  })
+  var sql = 'SELECT * FROM water WHERE username=?';
+  if(!value) {
+    connection.query(sql,sqlParams,function(err,result){
+      if (err) {
+        res.json({
+          status: 500,
+          msg: err,
+          data: ''
+        });
+        return;
+      }
+      if(result.length) {
+        res.json({
+          status: 200,
+          result: result,
+        })
+      }
+    })
+  }
+  if(value) {
+    var sqlv = `UPDATE water SET money=?  WHERE username=?`;
+    var sqlParamsv = [value, userName];
+    connection.query(sqlv,sqlParamsv,function(err,result) {
+      if (err) {
+        res.json({
+          status: 500,
+          msg: err,
+          data: ''
+        });
+        return;
+      }else {
+        res.json({
+          status: 200,
+          msg: '充值成功',
+          data: ''
+        });
+      }
+    })
+  }
+});
+router.post('/waterRate',function(req,res,next) {
+  var userName = req.body.username;
+  var value = req.body.value;
+  var sqlParams = [userName];
+  var sql = 'SELECT * FROM water WHERE username=?';
+  if(!value) {
+    connection.query(sql,sqlParams,function(err,result){
+      if (err) {
+        res.json({
+          status: 500,
+          msg: err,
+          data: ''
+        });
+        return;
+      }
+      if(result.length) {
+        res.json({
+          status: 200,
+          result: result,
+        })
+      }
+    })
+  }
+  if(value) {
+    var sqlv = `UPDATE water SET money=?  WHERE username=?`;
+    var sqlParamsv = [value, userName];
+    connection.query(sqlv,sqlParamsv,function(err,result) {
+      if (err) {
+        res.json({
+          status: 500,
+          msg: err,
+          data: ''
+        });
+        return;
+      }else {
+        res.json({
+          status: 200,
+          msg: '充值成功',
+          data: ''
+        });
+      }
+    })
+  }
+});
+//水费
+router.post('/waterRate',function(req,res,next) {
+  var userName = req.body.username;
+  var value = req.body.value;
+  var sqlParams = [userName];
+  var sql = 'SELECT * FROM water WHERE username=?';
+  if(!value) {
+    connection.query(sql,sqlParams,function(err,result){
+      if (err) {
+        res.json({
+          status: 500,
+          msg: err,
+          data: ''
+        });
+        return;
+      }
+      if(result.length) {
+        res.json({
+          status: 200,
+          result: result,
+        })
+      }
+    })
+  }
+  if(value) {
+    var sqlv = `UPDATE water SET money=?  WHERE username=?`;
+    var sqlParamsv = [value, userName];
+    connection.query(sqlv,sqlParamsv,function(err,result) {
+      if (err) {
+        res.json({
+          status: 500,
+          msg: err,
+          data: ''
+        });
+        return;
+      }else {
+        res.json({
+          status: 200,
+          msg: '充值成功',
+          data: ''
+        });
+      }
+    })
+  }
+});
+//电费
+router.post('/electricRate',function(req,res,next) {
+  var userName = req.body.username;
+  var value = req.body.value;
+  var sqlParams = [userName];
+  var sql = 'SELECT * FROM electric WHERE username=?';
+  if(!value) {
+    connection.query(sql,sqlParams,function(err,result){
+      if (err) {
+        res.json({
+          status: 500,
+          msg: err,
+          data: ''
+        });
+        return;
+      }
+      if(result.length) {
+        res.json({
+          status: 200,
+          result: result,
+        })
+      }
+    })
+  }
+  if(value) {
+    var sqlv = `UPDATE electric SET money=?  WHERE username=?`;
+    var sqlParamsv = [value, userName];
+    connection.query(sqlv,sqlParamsv,function(err,result) {
+      if (err) {
+        res.json({
+          status: 500,
+          msg: err,
+          data: ''
+        });
+        return;
+      }else {
+        res.json({
+          status: 200,
+          msg: '充值成功',
+          data: ''
+        });
+      }
+    })
+  }
+});
+//气费
+router.post('/gasRate',function(req,res,next) {
+  var userName = req.body.username;
+  var value = req.body.value;
+  var sqlParams = [userName];
+  var sql = 'SELECT * FROM gas WHERE username=?';
+  if(!value) {
+    connection.query(sql,sqlParams,function(err,result){
+      if (err) {
+        res.json({
+          status: 500,
+          msg: err,
+          data: ''
+        });
+        return;
+      }
+      if(result.length) {
+        res.json({
+          status: 200,
+          result: result,
+        })
+      }
+    })
+  }
+  if(value) {
+    var sqlv = `UPDATE gas SET money=?  WHERE username=?`;
+    var sqlParamsv = [value, userName];
+    connection.query(sqlv,sqlParamsv,function(err,result) {
+      if (err) {
+        res.json({
+          status: 500,
+          msg: err,
+          data: ''
+        });
+        return;
+      }else {
+        res.json({
+          status: 200,
+          msg: '充值成功',
+          data: ''
+        });
+      }
+    })
+  }
+});
+//物业费
+router.post('/propertyRate',function(req,res,next) {
+  var userName = req.body.username;
+  var value = req.body.value;
+  var sqlParams = [userName];
+  var sql = 'SELECT * FROM property WHERE username=?';
+  if(!value) {
+    connection.query(sql,sqlParams,function(err,result){
+      if (err) {
+        res.json({
+          status: 500,
+          msg: err,
+          data: ''
+        });
+        return;
+      }
+      if(result.length) {
+        res.json({
+          status: 200,
+          result: result,
+        })
+      }
+    })
+  }
+  if(value) {
+    var sqlv = `UPDATE property SET money=?  WHERE username=?`;
+    var sqlParamsv = [value, userName];
+    connection.query(sqlv,sqlParamsv,function(err,result) {
+      if (err) {
+        res.json({
+          status: 500,
+          msg: err,
+          data: ''
+        });
+        return;
+      }else {
+        res.json({
+          status: 200,
+          msg: '充值成功',
+          data: ''
+        });
+      }
+    })
+  }
 });
 module.exports = router;

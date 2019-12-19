@@ -8,11 +8,11 @@
         />
         <div class="content">
             <div class="w">
-                <p>地址:</p>
-                <p>用户:</p>
-                <p>用电量:</p>
-                <p>剩余电量:</p>
-                <p>余额:</p>
+                <p>地址:&nbsp;&nbsp;&nbsp;{{this.$store.state.useraddress}}</p>
+                <p>用户:&nbsp;&nbsp;&nbsp;{{this.$store.state.username}}</p>
+                <p>用电量:&nbsp;&nbsp;&nbsp;{{num}}度</p>
+                <p>大约剩余电量:&nbsp;&nbsp;&nbsp;{{surplus}}度</p>
+                <p>余额:&nbsp;&nbsp;&nbsp;{{money}}元</p>
                 <div>
                     <van-grid :column-num="3">
                             <van-grid-item
@@ -73,6 +73,8 @@
     </div>
 </template>
 <script>
+import { electricRate } from '@/api/api';
+import { Toast } from 'vant';
 import { Dialog } from 'vant';
 export default {
     data() {
@@ -83,9 +85,53 @@ export default {
             show: false,
             showKeyboard: true,
             value: '',
+            num: '',
+            money: '',
+            surplus: ''
         }
     },
+    mounted() {
+        this.dataList();
+    },
     methods: {
+        dataList() {
+            electricRate({username: this.$store.state.username})
+            .then(res => {
+                if(res.status == 200){
+                    this.num = Math.round(res.result[0].num);
+                    this.money = Math.round(res.result[0].money);
+                    if(this.money >= 0) {
+                        if(this.num<=210) {
+                            let all = Math.round(this.money/0.5469);
+                            if(all > this.num ) {
+                                this.surplus = all - this.num;
+                            }else {
+                                this.surplus = '0';
+                            }
+                        }else if(this.num>210 && this.num<=400) {
+                            let all = 210/0.5469+(this.num-210)/0.5969;
+                            if(all > this.num ) {
+                                this.surplus = all - this.num;
+                            }else {
+                                this.surplus = '0';
+                            }
+                        }else if(this.num>400) {
+                            let all = 210/0.5469+190/0.5969+(this.num-400)/0.8469;
+                            if(all > this.num ) {
+                                this.surplus = all - this.num;
+                            }else {
+                                this.surplus = '0';
+                            }
+                        }
+                    }else {
+                        this.surplus = '0';
+                    }
+                }
+            })
+            .catch(error => {
+                Toast.fail(error);
+            })
+        },
         onClickLeft() {
             this.$router.back();
         },
@@ -134,7 +180,15 @@ export default {
         onInput(key) {
             this.value = (this.value + key).slice(0, 6);
             if(this.value.length == 6) {
-                console.log(this.value);
+                if(this.value == '111111') {
+                    var paymon = Number(this.nowMoney) + this.money;
+                    electricRate({username: this.$store.state.username, value: paymon })
+                        .then(res => {
+                            this.show = false;
+                            this.dataList();
+                            Toast.success(res.msg);
+                        })
+                }
             }
         },
         onDelete() {

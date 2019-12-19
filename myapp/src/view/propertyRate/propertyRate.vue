@@ -8,11 +8,12 @@
         />
         <div class="content">
             <div class="w">
-                <p>地址:</p>
-                <p>用户:</p>
-                <p>面积:</p>
-                <p>物业费：</p>
-                <p>未缴纳:</p>
+                <p>地址:&nbsp;&nbsp;&nbsp;{{this.$store.state.useraddress}}</p>
+                <p>用户:&nbsp;&nbsp;&nbsp;{{this.$store.state.username}}</p>
+                <p>面积:&nbsp;&nbsp;&nbsp;{{this.$store.state.area}}平方米</p>
+                <p>物业费&nbsp;&nbsp;&nbsp;{{property}}/月</p>
+                <p>已缴纳:&nbsp;&nbsp;&nbsp;{{money}}</p>
+                <p>未缴纳:&nbsp;&nbsp;&nbsp;{{needmoney}}</p>
                 <div>
                     <van-grid :column-num="3">
                             <van-grid-item
@@ -47,6 +48,8 @@
     </div>
 </template>
 <script>
+import { propertyRate } from '@/api/api';
+import { Toast } from 'vant';
 import { Dialog } from 'vant';
 export default {
     data() {
@@ -57,9 +60,32 @@ export default {
             show: false,
             showKeyboard: true,
             value: '',
+            money: '',
+            property: '',
+            needmoney: ''
         }
     },
+    mounted() {
+        this.dataList();
+    },
     methods: {
+        dataList() {
+            propertyRate({username: this.$store.state.username})
+            .then(res => {
+                if(res.status == 200){
+                    this.money = Math.round(res.result[0].money);
+                    this.property = Math.round(this.$store.state.area/1.6);
+                    if(this.money >= this.property) {
+                        this.needmoney = '0';
+                    }else {
+                        this.needmoney = this.property - this.money;
+                    }
+                }
+            })
+            .catch(error => {
+                Toast.fail(error);
+            })
+        },
         onClickLeft() {
             this.$router.back();
         },
@@ -92,7 +118,15 @@ export default {
         onInput(key) {
             this.value = (this.value + key).slice(0, 6);
             if(this.value.length == 6) {
-                console.log(this.value);
+                if(this.value == '111111') {
+                    var paymon = Number(this.nowMoney) + this.money;
+                    propertyRate({username: this.$store.state.username, value: paymon })
+                        .then(res => {
+                            this.show = false;
+                            this.dataList();
+                            Toast.success(res.msg);
+                        })
+                }
             }
         },
         onDelete() {

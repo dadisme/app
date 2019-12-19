@@ -65,6 +65,10 @@ export default {
                 .then(res => {
                 if (res.status === 200) {
                     this.loading = false;
+                    sessionStorage.setItem('address', res.address);
+                    this.$store.state.useraddress = sessionStorage.getItem('address');
+                    sessionStorage.setItem('area', res.coverarea);
+                    this.$store.state.area = sessionStorage.getItem('area');
                     this.$router.push({
                         name: 'Mine',
                         query: {
