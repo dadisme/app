@@ -8,7 +8,8 @@
         />
         <div class="content">
             <div class="w">
-                
+                <h2>申明</h2>
+                <p>&nbsp;&nbsp;&nbsp;&nbsp;该app的解释权归该小区旌城上品所有，上面一切的内容都可以找总物业查看。如若有疑问，欢迎各位业主找物业公司核实内容。</p>
             </div>  
         </div>
     </div>
@@ -36,5 +37,11 @@ export default {
   left: 0;
   top: 0;
 }
-
+.w{
+    margin: 58px 12px 0 12px;
+    text-align: left;
+}
+h2{
+    text-align: center;
+}
 </style>

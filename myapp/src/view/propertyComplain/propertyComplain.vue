@@ -8,27 +8,42 @@
         />
         <div class="content">
             <div class="w">
-                <textarea rows="16" cols="47" placeholder="请输入您的意见或者建议" border v-model="advice"></textarea>
+                <textarea rows="16" cols="47" placeholder="请输入您的意见或者建议" border v-model="advice" maxlength="85" @input="adviceInput"></textarea>
+                <span class="xianzhi">{{remnant}}/85</span>
                 <van-button size="large" class="recharge" @click="complain">提交</van-button>
             </div>  
         </div>
     </div>
 </template>
 <script>
+import { propertyComplain } from '@/api/api';
+import { Toast } from 'vant';
 import { Dialog } from 'vant';
 export default {
     data() {
         return{
-            advice: ''
+            advice: '',
+            remnant: 0
         }
     },
     methods: {
+        adviceInput(){
+            var txtVal = this.advice.length;
+            this.remnant = txtVal;
+        },
         onClickLeft() {
             this.$router.back();
         },
         complain (){
             if(this.advice) {
-                console.log('111');
+                propertyComplain({username: this.$store.state.username, advice: this.advice})
+                    .then(res=>{
+                        this.advice = '';
+                        Toast.success(res.msg);
+                    })
+                    .catch(error=>{
+                         Toast.fail(error);
+                    })
             }else {
                 Dialog.alert({
                     title: '提示',
@@ -55,11 +70,19 @@ export default {
     text-align: left;
     textarea{
         margin: 0 12px;
+        width: 91%;
+        height: 210px;
     }
     .recharge{
         color: #fff;
         background-color: #ff0000;
         margin: 12px 0 12px 0;
+        width: 100%;
     }
+}
+.xianzhi{
+    position: relative;
+    left: 85%;
+    top: -30px;
 }
 </style>

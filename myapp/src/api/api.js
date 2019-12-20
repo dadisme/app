@@ -9,6 +9,14 @@ export const waterRate = params => post('waterRate', params);
 export const electricRate = params => post('electricRate', params);
 export const gasRate = params => post('gasRate', params);
 export const propertyRate = params => post('propertyRate', params);
+export const repairsApply = params => post('repairsApply', params);
+export const houseManager = params => post('houseManager', params);
+export const propertyComplain = params => post('propertyComplain', params);
+
+
+
+
+
 
 
 

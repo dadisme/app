@@ -41,12 +41,18 @@
                         @cancel="cancel"
                     />
                 </van-popup>
-                <van-button size="large" class="recharge">提交</van-button>
+                <van-button size="large" class="recharge" @click="submit">通知管理员</van-button>
+                <p class="message"><van-icon name="warning" class="warning" />温馨提示</p>
+                <p class="message">通知物业后，稍后会有工作人员及时联系您询问家政管理的情况并确认上门时间。</p>
+                <p class="message">如果事发紧急也可以直接拨打物业电话：030-8075462</p>
             </div>
         </div>
     </div>
 </template>
 <script>
+import { houseManager } from '@/api/api';
+import { Toast } from 'vant';
+import { Dialog } from 'vant';
 export default {
     data() {
         return{
@@ -54,8 +60,8 @@ export default {
                     { text: '做饭阿姨', children: [{text:'午餐', id:1},{text:'晚餐', id:2},{text:'午餐+晚餐', id:3},{text:'一日三餐', id:4},{text:'住家', id:5},{text:'其他情况', id:6}] },
                     { text: '月嫂', children: [{text:'详情需面谈', id: 1}] },
                     { text: '育儿嫂', children: [{text:'详情需面谈', id:1}] }],
-            activeIds: 1,
-            activeIndex: 0,
+            activeIds: 0,
+            activeIndex: -1,
             selectPeo: 0,
             selectTim: '',
             showStart: false,
@@ -63,25 +69,49 @@ export default {
             currentDateStart: new Date(),
             currentDateEnd: new Date(),
             minDate: new Date(),
-            maxDate: new Date(2021, 10, 1),
+            maxDate: new Date(2021,12,31),
             startTimes: '',
-            endTimes: ''
+            endTimes: '',
+            allstart: '',
+            allend: ''
         }
     },
-    watch:{
-        
-    },
     methods: {
+        submit() {
+            var value = this.selectPeo+this.selectTim;
+            var time = this.startTimes+'到'+this.endTimes;
+            if(!value) {
+                Dialog.alert({
+                    title: '提示',
+                    message: '请选择项目！'
+                }).then(() => {
+                // on close
+                });
+            }else if(!this.startTimes||!this.endTimes) {
+                Dialog.alert({
+                    title: '提示',
+                    message: '请选择时间段！'
+                }).then(() => {
+                // on close
+                });
+            }else {
+                houseManager({username: this.$store.state.username, value: value, time: time})
+                .then(res=>{
+                    Toast.success(res.msg);
+                })
+                .catch(error=>{
+                    Toast.fail(error);
+                })
+            }
+        },
         onClickLeft() {
             this.$router.back();
         },
         left(index) {
             this.selectPeo = this.items[index].text;
-            console.log(this.selectPeo)
         },
         right(data) {
             this.selectTim = data.text;
-            console.log(this.selectTim);
         },
         showPopupStart() {
             this.showStart = true;
@@ -101,25 +131,27 @@ export default {
         },
         startTime(value) {
             this.startTimes = value.getFullYear() + '-' + (value.getMonth() + 1) + '-' + value.getDate();
-            console.log(this.startTimes);
             this.showStart = false;
-            let start = new Date(Date.parse(value));
-            this.compare(start,0);
+            this.allstart = value.getFullYear()*365+(value.getMonth() + 1)*30+value.getDate();
         },
         endTime(value) {
-            this.endTimes = value.getFullYear() + '-' + (value.getMonth() + 1) + '-' + value.getDate();
-            console.log(this.endTimes);
-            this.showEnd = false;
-            let end = new Date(Date.parse(this.endTimes));
-            this.compare(0,end);
+            this.allend = value.getFullYear()*365+(value.getMonth() + 1)*30+value.getDate();
+            if(this.allend >= this.allstart) {
+                this.endTimes = value.getFullYear() + '-' + (value.getMonth() + 1) + '-' + value.getDate();
+                this.showEnd = false;
+            }else {
+                Dialog.alert({
+                    title: '提示',
+                    message: '选择有误！请重新选择！'
+                }).then(() => {
+                // on close
+                });
+            }
         },
         cancel() {
             this.showStart = false;
             this.showEnd = false;
         },
-        compare(s,e) {
-            console.log(s,e)
-        }
     }
 }
 </script>
@@ -142,12 +174,24 @@ p{
 .recharge{
     color: #fff;
     background-color: #1fc461;
-    margin: 12px 0 12px 0;
+    margin: 0 0 12px 0;
 }
 .van-tree-select__item--active{
     color: #1fc461;
 }
 .van-sidebar-item--select{
     border-color: #1fc461;
+}
+p{
+    margin: 8px 12px;
+}
+.warning{
+    color: #1fc461;
+    font-size: 15px;
+    top: 4px;
+}
+.message{
+    color: #A1A6B3;
+    font-size: 12px;
 }
 </style>
