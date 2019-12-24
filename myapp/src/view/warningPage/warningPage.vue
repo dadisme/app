@@ -8,8 +8,11 @@
         />
         <div class="content">
             <div class="w">
-                <h2>申明</h2>
+                <h1>申明</h1>
                 <p>&nbsp;&nbsp;&nbsp;&nbsp;该app的解释权归该小区旌城上品所有，上面一切的内容都可以找总物业查看。如若有疑问，欢迎各位业主找物业公司核实内容。</p>
+                <p class="last">欢迎各位业主入住。</p>
+                <p class="xq">旌城上品物业部门</p>
+                <p class="time">2013年12月20日</p>
             </div>  
         </div>
     </div>
@@ -41,7 +44,16 @@ export default {
     margin: 58px 12px 0 12px;
     text-align: left;
 }
-h2{
+h1{
     text-align: center;
+}
+p{
+    font-size: 20px;
+}
+.last{
+        font-size: 24px;
+}
+.xq, .time{
+    text-align: right;
 }
 </style>

@@ -2,7 +2,7 @@ import Vue from 'vue'
 import Router from 'vue-router'
 import Home from '@/view/homePage/home.vue'
 import Life from '@/view/lifePage/life.vue'
-import Notice from '@/view/noticePage/noticePage.vue'
+import Notice from '@/view/notice/noticePage.vue'
 import Mine from '@/view/minePage/mine.vue'
 import Login from '@/view/loginPage/login.vue'
 import Register from '@/view/registerPage/register.vue'
@@ -51,7 +51,7 @@ export default new Router({
     {
       path: '/Notice',
       name: 'Notice',
-      component: Notice
+      component: Notice,
     },
     {
       path: '/Notice/noticeMessage',

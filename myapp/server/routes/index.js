@@ -440,11 +440,53 @@ router.post('/houseManager',function(req,res,next) {
         data: ''
       });
       return;
-    }else {
+    }else if(result){
       res.json({
         status: 200,
         msg: '已成功通知管理员',
         data: ''
+      });
+    }
+  })
+});
+//公告
+router.get('/Notice',function(req,res,next){
+  var sql = 'SELECT * FROM notice';
+  connection.query(sql,function(err,result) {
+    if (err) {
+      res.json({
+        status: 500,
+        msg: err,
+        data: ''
+      });
+      return;
+    }else if(result){
+      res.json({
+        status: 200,
+        msg: 'success',
+        data: result
+      });
+    }
+  })
+});
+//公告详情
+router.post('/noticeDetail',function(req,res,next) {
+  var title = req.body.title;
+  var sql = 'SELECT * FROM notice WHERE title=?';
+  var sqlParams = [title];
+  connection.query(sql,sqlParams,function(err,result) {
+    if (err) {
+      res.json({
+        status: 500,
+        msg: err,
+        data: ''
+      });
+      return;
+    }else if(result){
+      res.json({
+        status: 200,
+        msg: '',
+        data: result
       });
     }
   })

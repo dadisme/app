@@ -12,6 +12,9 @@ export const propertyRate = params => post('propertyRate', params);
 export const repairsApply = params => post('repairsApply', params);
 export const houseManager = params => post('houseManager', params);
 export const propertyComplain = params => post('propertyComplain', params);
+export const noticePage = () => get('notice');
+export const noticeDetail = params => post('noticeDetail', params);
+
 
 
 

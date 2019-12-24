@@ -7,28 +7,44 @@
     />
     <div class="content">
       <ul>
-        <li>
-          <router-link to="/Notice/noticeMessage">
-            <img src="../../assets/img/gg/property.jpg">
-            <p>物业缴费提醒</p>
-          </router-link>         
+        <li v-for="(item,i) in data" :key="i" @click="detail(i)">
+          <img :src="'../../'+item.img">
+          <p>{{item.title}}</p>        
         </li>
-        <li></li>
-        <li></li>
-        <li></li>
-        <li></li>
-        <li></li>
       </ul>
     </div>
   </div>
 </template>
 
 <script>
+import { noticePage } from '@/api/api';
+import { Toast } from 'vant';
 export default {
-  name: 'Activity',
+  name: 'Notice',
   data () {
     return {
-
+      picUrl: '',
+      title: '',
+      data: ''
+    }
+  },
+  mounted() {
+    noticePage()
+      .then(res=>{
+        this.data = res.data;
+      })
+      .catch(err=>{
+        Toast.fail(err);
+      })
+  },
+  methods: {
+    detail(i) {
+      this.$router.push({
+        name: 'noticeMessage',
+        query: {
+          title: this.data[i].title,
+        }
+      })
     }
   }
 }

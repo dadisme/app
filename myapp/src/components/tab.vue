@@ -16,7 +16,6 @@
       <van-tabbar-item
         to="/Notice"
         icon="comment-circle-o"
-        info="5"
       >
         公告
       </van-tabbar-item>
