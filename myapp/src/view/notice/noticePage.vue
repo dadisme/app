@@ -8,7 +8,7 @@
     <div class="content">
       <ul>
         <li v-for="(item,i) in data" :key="i" @click="detail(i)">
-          <img :src="'../../'+item.img">
+          <img :src="item.img">
           <p>{{item.title}}</p>        
         </li>
       </ul>

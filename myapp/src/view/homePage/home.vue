@@ -8,9 +8,9 @@
     <div class="content">
       <div class="index-swiper">
         <van-swipe class="swiper" vertical :autoplay="3000">
-          <van-swipe-item><img src="../../assets/img/sy/xq.jpg"></van-swipe-item>
-          <van-swipe-item><img src="../../assets/img/sy/gou.jpg"></van-swipe-item>
-          <van-swipe-item><img src="../../assets/img/sy/rubush.jpeg"></van-swipe-item>
+          <van-swipe-item @click="detail('aboutPublic')"><img src="../../assets/img/sy/xq.jpg"></van-swipe-item>
+          <van-swipe-item @click="detail('fedDetail')"><img src="../../assets/img/sy/gou.jpg"></van-swipe-item>
+          <van-swipe-item @click="detail('rubushDetail')"><img src="../../assets/img/sy/rubush.jpeg"></van-swipe-item>
         </van-swipe>
       </div>
       <van-grid class="index-icon">
@@ -49,9 +49,13 @@ export default {
 
     }
   },
-  created() {
-
+  methods: {
+    detail(way) {
+      this.$router.push({
+        name: way,
+      })
     }
+  }
 }
 </script>
 

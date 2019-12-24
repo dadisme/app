@@ -52,6 +52,7 @@ export default {
 <style scoped>
 .fixed{
     text-align: left;
+    margin: 12px;
 }
 .remind{
     color: blueviolet;

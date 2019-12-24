@@ -23,6 +23,8 @@ import Warning from '@/view/warningPage/warningPage.vue'
 import NotFound from '@/view/NotFound/NotFound.vue'
 import bindCard from '@/view/bindCard/bindCard.vue'
 import addCard from '@/view/bindCard/addCard.vue'
+import fedDetail from '@/view/homePage/fedDetail.vue'
+import rubushDetail from '@/view/homePage/rubushDetail.vue'
 
 
 
@@ -42,6 +44,22 @@ export default new Router({
       path: '/',
       name: 'Home',
       component: Home
+    },
+    {
+      path: '/fedDetail',
+      name: 'fedDetail',
+      component: fedDetail,
+      meta: {
+        fullScreen: true
+      }
+    },
+    {
+      path: '/rubushDetail',
+      name: 'rubushDetail',
+      component: rubushDetail,
+      meta: {
+        fullScreen: true
+      }
     },
     {
       path: '/Life',
