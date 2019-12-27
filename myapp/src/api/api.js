@@ -14,6 +14,10 @@ export const houseManager = params => post('houseManager', params);
 export const propertyComplain = params => post('propertyComplain', params);
 export const noticePage = () => get('notice');
 export const noticeDetail = params => post('noticeDetail', params);
+export const activityPage = () => get('Activity');
+export const activityDetail = params => post('activityDetail', params);
+export const sendName = params => post('sendName', params);
+
 
 
 

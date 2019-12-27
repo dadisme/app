@@ -26,14 +26,8 @@
       <div class="index-board">
         <span>小区活动</span>
         <ul>
-          <li>
-            <span>关于双十一快递</span>
-          </li>
-          <li>
-            <span>关于双十一快递关于双十一快递关于双十一快递</span>
-          </li>
-          <li>
-            <span>关于双十一快递</span>
+          <li @click="activity(i)" v-for="(item,i) in data" :key="i">
+            <span>{{item.title}}</span>
           </li>
         </ul>
       </div>
@@ -42,17 +36,39 @@
 </template>
 
 <script>
+import { activityPage } from '@/api/api';
+import { Toast } from 'vant';
 export default {
   name: 'Home',
   data () {
     return {
-
+      data: ''
     }
   },
+  mounted() {
+    this.list();
+  },
   methods: {
+    list() {
+      activityPage()
+      .then(res=>{
+          this.data = res.data;
+      })
+      .catch(err=>{
+          Toast.fail(err);
+      })
+    },
     detail(way) {
       this.$router.push({
         name: way,
+      })
+    },
+    activity(i) {
+      this.$router.push({
+        name: 'activity',
+        query: {
+          title: this.data[i].title,
+        }
       })
     }
   }

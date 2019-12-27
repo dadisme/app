@@ -491,4 +491,83 @@ router.post('/noticeDetail',function(req,res,next) {
     }
   })
 });
+//活动
+router.get('/Activity',function(req,res,next){
+  var sql = 'SELECT * FROM activity';
+  connection.query(sql,function(err,result) {
+    if (err) {
+      res.json({
+        status: 500,
+        msg: err,
+        data: ''
+      });
+      return;
+    }else if(result){
+      res.json({
+        status: 200,
+        msg: 'success',
+        data: result
+      });
+    }
+  })
+});
+//活动详情
+router.post('/activityDetail',function(req,res,next) {
+  var title = req.body.title;
+  var sql = 'SELECT * FROM activity WHERE title=?';
+  var sqlParams = [title];
+  connection.query(sql,sqlParams,function(err,result) {
+    if (err) {
+      res.json({
+        status: 500,
+        msg: err,
+        data: ''
+      });
+      return;
+    }else if(result){
+      res.json({
+        status: 200,
+        msg: '',
+        data: result
+      });
+    }
+  })
+});
+//报名
+router.post('/sendName',function(req,res,next) {
+  var sql = 'SELECT * FROM activity';
+  connection.query(sql,function(err,result) {
+    if (err) {
+      res.json({
+        status: 500,
+        msg: err,
+        data: ''
+      });
+      return;
+    }else if(result){
+      let params = result.people;
+      let name = req.body.username;
+      let title = req.body.title;
+      params.push(name);
+      var sql = `UPDATE activity SET people=?  WHERE title=?`;
+      var sqlParams = [params,title];
+      connection.query(sql,sqlParams,function(err,result) {
+        if (err) {
+          res.json({
+            status: 500,
+            msg: err,
+            data: ''
+          });
+          return;
+        }else if(result){
+          res.json({
+            status: 200,
+            msg: '报名成功',
+            data: ''
+          });
+        }
+      })
+    }
+  })
+});
 module.exports = router;

@@ -25,7 +25,7 @@ import bindCard from '@/view/bindCard/bindCard.vue'
 import addCard from '@/view/bindCard/addCard.vue'
 import fedDetail from '@/view/homePage/fedDetail.vue'
 import rubushDetail from '@/view/homePage/rubushDetail.vue'
-
+import activity from '@/view/homePage/activity.vue'
 
 
 
@@ -57,6 +57,14 @@ export default new Router({
       path: '/rubushDetail',
       name: 'rubushDetail',
       component: rubushDetail,
+      meta: {
+        fullScreen: true
+      }
+    },
+    {
+      path: '/activity',
+      name: 'activity',
+      component: activity,
       meta: {
         fullScreen: true
       }
