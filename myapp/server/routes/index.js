@@ -535,8 +535,16 @@ router.post('/activityDetail',function(req,res,next) {
 });
 //报名
 router.post('/sendName',function(req,res,next) {
-  var sql = 'SELECT * FROM activity';
-  connection.query(sql,function(err,result) {
+  let title = req.body.title;
+  let name = req.body.username;
+  var people = req.body.people;
+  var params = [];
+  params = people.split(",");
+  params.push(name);
+  let param = params.toString();
+  var sql = `UPDATE activity SET people=?  WHERE title=?`;
+  var sqlParams = [param,title];
+  connection.query(sql,sqlParams,function(err,result) {
     if (err) {
       res.json({
         status: 500,
@@ -545,28 +553,11 @@ router.post('/sendName',function(req,res,next) {
       });
       return;
     }else if(result){
-      let params = result.people;
-      let name = req.body.username;
-      let title = req.body.title;
-      params.push(name);
-      var sql = `UPDATE activity SET people=?  WHERE title=?`;
-      var sqlParams = [params,title];
-      connection.query(sql,sqlParams,function(err,result) {
-        if (err) {
-          res.json({
-            status: 500,
-            msg: err,
-            data: ''
-          });
-          return;
-        }else if(result){
-          res.json({
-            status: 200,
-            msg: '报名成功',
-            data: ''
-          });
-        }
-      })
+      res.json({
+        status: 200,
+        msg: '报名成功',
+        data: params
+      });
     }
   })
 });

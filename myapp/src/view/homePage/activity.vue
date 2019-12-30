@@ -18,8 +18,7 @@
             <p></p>
             <p class="fixed">报名业主：{{this.people}}</p> 
             <p></p>
-            <van-button size="large" class="recharge" @click="sendName">报名</van-button>
-                                   　
+            <van-button size="large" class="recharge" @click="sendMessage">报名</van-button>         　
         </div>
     </div>
 </template>
@@ -55,22 +54,43 @@ export default {
                     Toast.fail(err);
                 })
         },
-        sendName() {
-            Dialog.confirm({
-                title: '提示',
-                message: `确认报名${this.title}这个活动吗??`
-            }).then(() => {
-                this.username = this.$store.state.username;
-                sendName({title: this.title, username: this.username})
-                    .then(res=>{
-                        Toast.success(res.msg);
-                    })
-                    .catch(err=>{
-                        Toast.fail(err);
-                    })
-            }).catch(() => {
-            // on cancel
-            });
+        sendMessage() {
+            if(!this.$store.state.username) {
+                this.$router.push({
+                    name: 'Login'
+                })
+            }else {
+                Dialog.confirm({
+                    title: '提示',
+                    message: `确认报名${this.title}这个活动吗??`
+                }).then(() => {
+                    this.username = this.$store.state.username;
+                    let params = [];
+                    params = this.people.split(",");
+                    for(let i=0; i<=params.length; i++){
+                        if(this.username == params[i]) {
+                            Dialog.alert({
+                            title: '提示',
+                            message: `您已报名${this.title}！`
+                        }).then(() => {
+                        // on close
+                        });
+                        return;
+                        }
+                    sendName({title: this.title, username: this.username, people: this.people})
+                        .then(res=>{
+                            Toast.success(res.msg);
+                            this.list();
+                        })
+                        .catch(err=>{
+                            Toast.fail(err);
+                        })
+                        
+                    }
+                }).catch(() => {
+                // on cancel
+                });
+            }
         }
     }
 }
