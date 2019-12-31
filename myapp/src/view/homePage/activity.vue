@@ -33,7 +33,9 @@ export default {
             title: '',
             content: '',
             people: '',
-            username: ''
+            username: '',
+            showSend: true,
+            showDia: false
         }
     },
     mounted() {
@@ -60,36 +62,40 @@ export default {
                     name: 'Login'
                 })
             }else {
-                Dialog.confirm({
-                    title: '提示',
-                    message: `确认报名${this.title}这个活动吗??`
-                }).then(() => {
-                    this.username = this.$store.state.username;
-                    let params = [];
-                    params = this.people.split(",");
-                    for(let i=0; i<=params.length; i++){
-                        if(this.username == params[i]) {
-                            Dialog.alert({
-                            title: '提示',
-                            message: `您已报名${this.title}！`
-                        }).then(() => {
-                        // on close
-                        });
-                        return;
-                        }
-                    sendName({title: this.title, username: this.username, people: this.people})
+                this.username = this.$store.state.username;
+                let params = [];
+                params = this.people.split(",");
+                for(let i=0; i<=params.length; i++){
+                    if(this.username == params[i]) {
+                        this.showDia = true;
+                        this.showSend = false;
+                        Dialog.alert({
+                        title: '提示',
+                        message: `您已报名${this.title}！`
+                    }).then(() => {
+                    // on close
+                    });
+                    }
+                }
+                if(!this.showDia && this.showSend) {
+                    Dialog.confirm({
+                        title: '提示',
+                        message: `确认报名${this.title}这个活动吗??`
+                    }).then(() => {
+                        sendName({title: this.title, username: this.username, people: this.people})
                         .then(res=>{
                             Toast.success(res.msg);
                             this.list();
+                            this.showSend = false;
+                            this.showDia = true;
                         })
                         .catch(err=>{
                             Toast.fail(err);
-                        })
-                        
-                    }
-                }).catch(() => {
-                // on cancel
-                });
+                        })  
+                    }).catch(() => {
+                    // on cancel
+                    });
+                }
             }
         }
     }

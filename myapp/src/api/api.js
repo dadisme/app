@@ -17,6 +17,10 @@ export const noticeDetail = params => post('noticeDetail', params);
 export const activityPage = () => get('Activity');
 export const activityDetail = params => post('activityDetail', params);
 export const sendName = params => post('sendName', params);
+export const bindCard = params => post('bindCard', params);
+export const addCard = params => post('addCard', params);
+
+
 
 
 

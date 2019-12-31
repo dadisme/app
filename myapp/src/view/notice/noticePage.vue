@@ -8,7 +8,9 @@
     <div class="content">
       <ul>
         <li v-for="(item,i) in data" :key="i" @click="detail(i)">
-          <img :src="item.img">
+          <!-- <img :v-lazy="item.img" > -->
+          <img :src="imgUrl[i]" >
+          <!-- <img src='../../assets/img/notice/property.jpg' > -->
           <p>{{item.title}}</p>        
         </li>
       </ul>
@@ -25,13 +27,17 @@ export default {
     return {
       picUrl: '',
       title: '',
-      data: ''
+      data: '',
+      imgUrl: {},
     }
   },
   mounted() {
     noticePage()
       .then(res=>{
         this.data = res.data;
+        this.data.forEach((item,i) => {
+          this.imgUrl[i] = require('../../assets/img/notice/'+item.img+'.jpg');
+        })
       })
       .catch(err=>{
         Toast.fail(err);

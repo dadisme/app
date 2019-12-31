@@ -38,14 +38,13 @@ export default {
         }
     },
     mounted() {
-            console.log(this.$route);
-            if (this.redirect) {
-                Toast({
-                    position: 'bottom',
-                    message: '未登录或登陆过期，请重新登陆~'
-                });
-            }
-        },
+        if (this.redirect) {
+            Toast({
+                position: 'bottom',
+                message: '未登录或登陆过期，请重新登陆~'
+            });
+        }
+    },
     methods: {
         login() {
             this.userNameErr = '';

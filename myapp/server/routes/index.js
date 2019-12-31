@@ -561,4 +561,59 @@ router.post('/sendName',function(req,res,next) {
     }
   })
 });
+//查看银行卡
+router.post('/bindCard',function(req,res,next) {
+  var username = req.body.username;
+  var sql = 'SELECT * FROM card WHERE username=?';
+  var sqlParams = [username];
+  connection.query(sql,sqlParams,function(err,result) {
+    if (err) {
+      res.json({
+        status: 500,
+        msg: err,
+        data: ''
+      });
+      return;
+    }else if(result){
+      res.json({
+        status: 200,
+        msg: '',
+        data: result
+      });
+    }
+  })
+});
+//增加银行卡
+router.post('/addCard',function(req,res,next) {
+  let name = req.body.username;
+  let card1 = req.body.card1;
+  let card2 = req.body.card2;
+  let card3 = req.body.card3;
+  if(card1&&!card2&&!card3) {
+    var sql = `UPDATE card SET card1=?  WHERE username=?`;
+    var sqlParams = [card1,name];
+  }else if(card1&&card2&&!card3) {
+    var sql = `UPDATE card SET card2=?  WHERE username=?`;
+    var sqlParams = [card2,name];
+  }else if(card1&&card2&&card3) {
+    var sql = `UPDATE card SET card3=?  WHERE username=?`;
+    var sqlParams = [card3,name];
+  }
+  connection.query(sql,sqlParams,function(err,result) {
+    if (err) {
+      res.json({
+        status: 500,
+        msg: err,
+        data: ''
+      });
+      return;
+    }else if(result){
+      res.json({
+        status: 200,
+        msg: '添加成功',
+        data: ''
+      });
+    }
+  })
+});
 module.exports = router;
