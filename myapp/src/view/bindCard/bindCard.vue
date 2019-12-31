@@ -10,9 +10,9 @@
             <div class="w">
                 <van-collapse v-model="activeNames">
                     <van-collapse-item title="我的银行卡" name="1">
-                        <p v-if="data.card1">{{data.card1}}</p>
-                        <p v-if="data.card2">{{data.card2}}</p>
-                        <p v-if="data.card3">{{data.card3}}</p>
+                        <p v-if="data.card1">{{data.card1}}<van-icon name="cross" class="right" /></p>
+                        <p v-if="data.card2">{{data.card2}}<van-icon name="cross" class="right" /></p>
+                        <p v-if="data.card3">{{data.card3}}<van-icon name="cross" class="right" /></p>
                     </van-collapse-item>
                 </van-collapse>
                 <van-button size="large" class="addCard" to="/bindCard/addCard">新增</van-button>
@@ -65,5 +65,8 @@ export default {
 .addCard{
     color: #fff;
     background-color: #ff0000;
+}
+.right{
+    float: right;
 }
 </style>
