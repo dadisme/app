@@ -26,7 +26,7 @@ import addCard from '@/view/bindCard/addCard.vue'
 import fedDetail from '@/view/homePage/fedDetail.vue'
 import rubushDetail from '@/view/homePage/rubushDetail.vue'
 import activity from '@/view/homePage/activity.vue'
-
+import paypwd from '@/view/paypwd/paypwd.vue'
 
 
 
@@ -236,6 +236,15 @@ export default new Router({
       path: '/bindCard/addCard',
       name: 'addCard',
       component: addCard,
+      meta: {
+        fullScreen: true,
+        requireAuth: true
+      } 
+    },
+    {
+      path: '/paypwd',
+      name: 'paypwd',
+      component: paypwd,
       meta: {
         fullScreen: true,
         requireAuth: true

@@ -10,9 +10,9 @@
             <div class="w">
                 <van-collapse v-model="activeNames">
                     <van-collapse-item title="我的银行卡" name="1">
-                        <p v-if="data.card1">{{data.card1}}<van-icon name="cross" class="right" /></p>
-                        <p v-if="data.card2">{{data.card2}}<van-icon name="cross" class="right" /></p>
-                        <p v-if="data.card3">{{data.card3}}<van-icon name="cross" class="right" /></p>
+                        <p v-if="data.card1">{{data.card1}}<span @click="deleteCrad('1')" class="right"><van-icon name="cross" /></span></p>
+                        <p v-if="data.card2">{{data.card2}}<span @click="deleteCrad('2')" class="right"><van-icon name="cross" /></span></p>
+                        <p v-if="data.card3">{{data.card3}}<span @click="deleteCrad('3')" class="right"><van-icon name="cross" /></span></p>
                     </van-collapse-item>
                 </van-collapse>
                 <van-button size="large" class="addCard" to="/bindCard/addCard">新增</van-button>
@@ -21,8 +21,9 @@
     </div>
 </template>
 <script>
-import { bindCard } from '@/api/api';
+import { bindCard,deleteCard } from '@/api/api';
 import { Toast } from 'vant';
+import { Dialog } from 'vant';
 export default {
     data() {
         return {
@@ -45,6 +46,28 @@ export default {
                 .catch(err => {
                     Toast.fail(err);
                 })
+        },
+        deleteCrad(index) {
+            Dialog.confirm({
+                title: '提示',
+                message: `确认删除银行卡${index}吗??`
+            }).then(() => {
+                // on confirm
+                let params = {
+                    username: this.$store.state.username,
+                    index: index
+                };
+                deleteCard(params)
+                    .then(res => {
+                        Toast.fail(res.msg);
+                        this.list();
+                    })
+                    .catch(err => {
+                        Toast.fail(err);
+                    })
+            }).catch(() => {
+                // on cancel
+            });
         }
     }
 }

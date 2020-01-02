@@ -19,6 +19,10 @@ export const activityDetail = params => post('activityDetail', params);
 export const sendName = params => post('sendName', params);
 export const bindCard = params => post('bindCard', params);
 export const addCard = params => post('addCard', params);
+export const deleteCard = params => post('deleteCard', params);
+export const paypwd = params => post('paypwd', params);
+export const paypwdDetail = params => post('paypwdDetail', params);
+
 
 
 

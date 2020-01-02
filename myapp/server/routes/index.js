@@ -593,11 +593,14 @@ router.post('/addCard',function(req,res,next) {
     var sql = `UPDATE card SET card1=?  WHERE username=?`;
     var sqlParams = [card1,name];
   }else if(card1&&card2&&!card3) {
-    var sql = `UPDATE card SET card2=?  WHERE username=?`;
-    var sqlParams = [card2,name];
+    var sql = `UPDATE card SET card1=?,card2=?  WHERE username=?`;
+    var sqlParams = [card1,card2,name];
   }else if(card1&&card2&&card3) {
-    var sql = `UPDATE card SET card3=?  WHERE username=?`;
-    var sqlParams = [card3,name];
+    var sql = `UPDATE card SET card1=?,card2=?,card3=?  WHERE username=?`;
+    var sqlParams = [card1,card2,card3,name];
+  }else if(card1&&!card2&&card3) {
+    var sql = `UPDATE card SET card1=?,card3=?  WHERE username=?`;
+    var sqlParams = [card1,card3,name];
   }
   connection.query(sql,sqlParams,function(err,result) {
     if (err) {
@@ -611,6 +614,118 @@ router.post('/addCard',function(req,res,next) {
       res.json({
         status: 200,
         msg: '添加成功',
+        data: ''
+      });
+    }
+  })
+});
+//删除银行卡
+router.post('/deleteCard',function(req,res,next) {
+  let name = req.body.username;
+  let index = req.body.index;
+  if(index == '1') {
+    var sql = `UPDATE card SET card1=?  WHERE username=?`;
+    var sqlParams = [null,name];
+  }else if(index == '2') {
+    var sql = `UPDATE card SET card2=?  WHERE username=?`;
+    var sqlParams = [null,name];
+  }else if(index == '3') {
+    var sql = `UPDATE card SET card3=?  WHERE username=?`;
+    var sqlParams = [null,name];
+  }
+  connection.query(sql,sqlParams,function(err,result) {
+    if (err) {
+      res.json({
+        status: 500,
+        msg: err,
+        data: ''
+      });
+      return;
+    }else if(result){
+      res.json({
+        status: 200,
+        msg: '删除成功',
+        data: ''
+      });
+    }
+  })
+});
+//增加银行卡
+router.post('/addCard',function(req,res,next) {
+  let name = req.body.username;
+  let card1 = req.body.card1;
+  let card2 = req.body.card2;
+  let card3 = req.body.card3;
+  if(card1&&!card2&&!card3) {
+    var sql = `UPDATE card SET card1=?  WHERE username=?`;
+    var sqlParams = [card1,name];
+  }else if(card1&&card2&&!card3) {
+    var sql = `UPDATE card SET card1=?,card2=?  WHERE username=?`;
+    var sqlParams = [card1,card2,name];
+  }else if(card1&&card2&&card3) {
+    var sql = `UPDATE card SET card1=?,card2=?,card3=?  WHERE username=?`;
+    var sqlParams = [card1,card2,card3,name];
+  }else if(card1&&!card2&&card3) {
+    var sql = `UPDATE card SET card1=?,card3=?  WHERE username=?`;
+    var sqlParams = [card1,card3,name];
+  }
+  connection.query(sql,sqlParams,function(err,result) {
+    if (err) {
+      res.json({
+        status: 500,
+        msg: err,
+        data: ''
+      });
+      return;
+    }else if(result){
+      res.json({
+        status: 200,
+        msg: '添加成功',
+        data: ''
+      });
+    }
+  })
+});
+//查看支付密码
+router.post('/paypwdDetail',function(req,res,next) {
+  let name = req.body.username;
+  var sql = 'SELECT * FROM card WHERE username=?';
+  var sqlParams = [name];
+  connection.query(sql,sqlParams,function(err,result) {
+    if (err) {
+      res.json({
+        status: 500,
+        msg: err,
+        data: ''
+      });
+      return;
+    }else if(result){
+      res.json({
+        status: 200,
+        msg: '',
+        data: result
+      });
+    }
+  })
+});
+//设置支付密码
+router.post('/paypwd',function(req,res,next) {
+  let name = req.body.username;
+  let pwd = req.body.pwd;
+  var sql = `UPDATE card SET pwd=?  WHERE username=?`;
+  var sqlParams = [pwd,name];
+  connection.query(sql,sqlParams,function(err,result) {
+    if (err) {
+      res.json({
+        status: 500,
+        msg: err,
+        data: ''
+      });
+      return;
+    }else if(result){
+      res.json({
+        status: 200,
+        msg: '设置支付密码成功',
         data: ''
       });
     }

@@ -77,10 +77,17 @@ export default {
                             params.card3 = this.data.card3;
                         }else if(!this.data.card1&&!this.data.card2&&this.data.card3) {
                             params.card1 = this.cardNum;
-                            params.card3 = this.cardNum;
+                            params.card3 = this.data.card3;
+                            console.log(params.card1)
                         }else if(this.data.card1&&!this.data.card2&&this.data.card3) {
                             params.card1 = this.data.card1;
                             params.card2 = this.cardNum;
+                            params.card3 = this.data.card3;
+                        }else if(!this.data.card1&&this.data.card2&&!this.data.card3) {
+                            params.card1 = this.cardNum;
+                            params.card2 = this.data.card2;
+                        }else if(!this.data.card1&&!this.data.card2&&this.data.card3) {
+                            params.card1 = this.cardNum;
                             params.card3 = this.data.card3;
                         }
                         addCard(params)
