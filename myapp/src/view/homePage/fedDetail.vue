@@ -5,6 +5,7 @@
             left-text="返回"
             left-arrow
             @click-left="onClickLeft"
+            fixed
         />
         <div>
             <p class="fixed">尊敬的各位业主/住户：</p>

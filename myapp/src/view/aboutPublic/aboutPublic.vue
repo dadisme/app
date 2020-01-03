@@ -5,6 +5,7 @@
             left-text="返回"
             left-arrow
             @click-left="onClickLeft"
+            fixed
         />
         <div class="content">
             <div class="message">

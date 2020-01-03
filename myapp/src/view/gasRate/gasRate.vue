@@ -12,7 +12,7 @@
                 <p>用户:&nbsp;&nbsp;&nbsp;{{this.$store.state.username}}</p>
                 <p>用气量:&nbsp;&nbsp;&nbsp;{{num}}平方米</p>
                 <p>剩余气量:&nbsp;&nbsp;&nbsp;{{surplus}}平方米</p>
-                <p>余额:&nbsp;&nbsp;&nbsp;{{money}}平方米</p>
+                <p>余额:&nbsp;&nbsp;&nbsp;{{money}}元</p>
                 <div>
                     <van-grid :column-num="3">
                             <van-grid-item
@@ -55,7 +55,7 @@
             <p class="message">根据市政府《关于做好规章规范性文件清理工作的通知》，为加强本市新建住宅小区及公建燃气工程（以下简称燃气工程）建设收费管理，现本小区燃气费价格如下</p>
             <p class="message">住宅项目每建筑平方米28元。</p>
         </div>
-        <van-popup v-model="show" position="bottom" closeable class="popup">
+        <van-popup v-model="showPop" position="bottom" closeable class="popup">
             <!-- 密码输入框 -->
             <van-password-input
             :value="value"
@@ -68,10 +68,36 @@
             @delete="onDelete"
             />
         </van-popup>
+        <van-dialog
+            v-model="showDia"
+            title="提示"
+            show-cancel-button
+            show-confirm-button
+            :beforeClose="beforeClose"
+        >
+            <p class="sure-money">确定要支付{{nowMoney}}元吗？</p>
+            <van-collapse v-model="activeNames">
+                <van-collapse-item title="我的银行卡" name="1" class="my-card">
+                    <van-radio-group v-model="radio" @change="cardOption(radio)">
+                        <van-cell-group>
+                            <van-cell :title="data.card1" clickable @click="radio = '1'" v-if="data.card1" class="cell">
+                                <van-icon name="success" v-if="showCard1"/>
+                            </van-cell>
+                            <van-cell :title="data.card2" clickable @click="radio = '2'" v-if="data.card2" class="cell">
+                                <van-icon name="success" v-if="showCard2"/>
+                            </van-cell>
+                            <van-cell :title="data.card3" clickable @click="radio = '3'" v-if="data.card3" class="cell">
+                                <van-icon name="success" v-if="showCard3"/>
+                            </van-cell>
+                        </van-cell-group>
+                    </van-radio-group>
+                </van-collapse-item>
+            </van-collapse>
+        </van-dialog>
     </div>
 </template>
 <script>
-import { gasRate } from '@/api/api';
+import { gasRate, bindCard  } from '@/api/api';
 import { Toast } from 'vant';
 import { Dialog } from 'vant';
 export default {
@@ -80,12 +106,19 @@ export default {
             waterMoney: '',
             waterCustom: '',
             nowMoney: '',
-            show: false,
+            showPop: false,
             showKeyboard: true,
             value: '',
             num: '',
             money: '',
-            surplus: ''
+            surplus: '',
+            showDia: false,
+            activeNames: ['1'],
+            radio: '0',
+            data: '',
+            showCard1: false,
+            showCard2: false,
+            showCard3: false,
         }
     },
     mounted() {
@@ -145,7 +178,20 @@ export default {
         },
         payforGas (){
             if(this.nowMoney) {
-                this.showPopup();
+                bindCard({username: this.$store.state.username})
+                .then(res => {
+                    this.data = res.data[0];            
+                    if(this.data.card1 == ''&&this.data.card2 == ''&&this.data.card3 == '') {
+                        this.$router.push({
+                            name: 'bindCard'
+                        })
+                    }else {
+                        this.showDia = true;
+                    }
+                })
+                .catch(err => {
+                    Toast.fail(err);
+                })
             }else {
                 Dialog.alert({
                     title: '提示',
@@ -155,21 +201,76 @@ export default {
                 });
             }
         },
+        cardOption(index) {
+            if(index == '1') {
+                this.showCard1 = true;
+                this.showCard2 = false;
+                this.showCard3 = false;
+            }else if(index == '2') {
+                this.showCard1 = false;
+                this.showCard2 = true;
+                this.showCard3 = false;
+            }else if(index == '3') {
+                this.showCard1 = false;
+                this.showCard2 = false;
+                this.showCard3 = true;
+            }
+        },
+        beforeClose(action, done) {
+            if (action === 'confirm') {
+                if(this.showCard1||this.showCard2||this.showCard3) {
+                    done();
+                    this.showPopup();
+                }else {
+                    Dialog.alert({
+                        title: '提示',
+                        message: '请选择银行卡!!'
+                    }).then(() => {
+                    // on close
+                        done();
+                    });
+                }
+                
+            } else {
+                done();
+            }         
+        },
         showPopup() {
-            this.show = true;
-            this.value = '';
+            if(this.$store.state.pwd == '') {
+                this.$router.push({
+                    name: 'paypwd'
+                })
+            }else {
+                this.showPop = true;
+                this.value = '';
+            }
         },
         onInput(key) {
+            let cardNum = '';
+            if(this.showCard1) {
+                cardNum = this.data.card1;
+            }else if(this.showCard2){
+                cardNum = this.data.card2;
+            }else if(this.showCard3) {
+                cardNum = this.data.card3;
+            }
             this.value = (this.value + key).slice(0, 6);
             if(this.value.length == 6) {
-                if(this.value == '111111') {
+                if(this.value == this.$store.state.pwd) {
                     var paymon = Number(this.nowMoney) + this.money;
                     gasRate({username: this.$store.state.username, value: paymon })
                         .then(res => {
-                            this.show = false;
+                            this.showPop = false;
                             this.dataList();
                             Toast.success(res.msg);
                         })
+                }else {
+                    Dialog.alert({
+                        title: '提示',
+                        message: '支付密码错误!!'
+                    }).then(() => {
+                    // on close
+                    });
                 }
             }
         },
@@ -234,5 +335,14 @@ p{
 }
 .popup{
     height: 40%;
+}
+.sure-money{
+    text-align: center;
+}
+.my-card{
+    text-align: left;
+}
+.cell{
+    height: 35px;
 }
 </style>

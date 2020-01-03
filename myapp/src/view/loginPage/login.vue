@@ -24,7 +24,7 @@
 </template>
 <script>
 import { nameCheck, pwdCheck } from '@/util/util';
-import { login } from '@/api/api';
+import { login, paypwdDetail } from '@/api/api';
 import { Toast } from 'vant';
 export default {
     data() {
@@ -62,8 +62,16 @@ export default {
             }
             login({ userName: this.userName, password: this.password })
                 .then(res => {
-                if (res.status === 200) {
-                    this.loading = false;
+                    if (res.status === 200) {
+                        this.loading = false;
+                        paypwdDetail({ username: this.userName })
+                            .then(res => {
+                                if (res.status === 200) {
+                                    this.paypwd = res.data[0].pwd;
+                                    sessionStorage.setItem('pwd', this.paypwd);
+                                    this.$store.state.pwd = sessionStorage.getItem('pwd');
+                                } 
+                            })
                     sessionStorage.setItem('address', res.address);
                     this.$store.state.useraddress = sessionStorage.getItem('address');
                     sessionStorage.setItem('area', res.coverarea);
