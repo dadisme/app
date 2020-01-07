@@ -22,6 +22,7 @@ export const addCard = params => post('addCard', params);
 export const deleteCard = params => post('deleteCard', params);
 export const paypwd = params => post('paypwd', params);
 export const paypwdDetail = params => post('paypwdDetail', params);
+export const seeActivity = params => post('seeActivity', params);
 
 
 

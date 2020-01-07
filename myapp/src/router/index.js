@@ -27,6 +27,7 @@ import fedDetail from '@/view/homePage/fedDetail.vue'
 import rubushDetail from '@/view/homePage/rubushDetail.vue'
 import activity from '@/view/homePage/activity.vue'
 import paypwd from '@/view/paypwd/paypwd.vue'
+import seeActivity from '@/view/homePage/seeActivity.vue'
 
 
 
@@ -67,6 +68,15 @@ export default new Router({
       component: activity,
       meta: {
         fullScreen: true
+      }
+    },
+    {
+      path: '/seeActivity',
+      name: 'seeActivity',
+      component: seeActivity,
+      meta: {
+        fullScreen: true,
+        requireAuth: true
       }
     },
     {

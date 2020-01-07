@@ -731,4 +731,26 @@ router.post('/paypwd',function(req,res,next) {
     }
   })
 });
+//查看报名活动
+router.post('/seeActivity',function(req,res,next) {
+  let name = req.body.username;
+  var sql = 'SELECT * FROM activity WHERE people REGEXP ?';
+  var sqlParams = [name];
+  connection.query(sql,sqlParams,function(err,result) {
+    if (err) {
+      res.json({
+        status: 500,
+        msg: err,
+        data: ''
+      });
+      return;
+    }else if(result){
+      res.json({
+        status: 200,
+        msg: '',
+        data: result
+      });
+    }
+  })
+});
 module.exports = router;
