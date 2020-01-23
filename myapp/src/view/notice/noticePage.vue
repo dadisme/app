@@ -31,17 +31,8 @@ export default {
       imgUrl: {},
     }
   },
-  mounted() {
-    noticePage()
-      .then(res=>{
-        this.data = res.data;
-        this.data.forEach((item,i) => {
-          this.imgUrl[i] = require('../../assets/img/notice/'+item.img+'.jpg');
-        })
-      })
-      .catch(err=>{
-        Toast.fail(err);
-      })
+  created() {
+    this.list();
   },
   methods: {
     detail(i) {
@@ -50,6 +41,18 @@ export default {
         query: {
           title: this.data[i].title,
         }
+      })
+    },
+    list() {
+      noticePage()
+      .then(res=>{
+        this.data = res.data;
+        this.data.forEach((item,i) => {
+          this.imgUrl[i] = require('../../assets/img/notice/'+item.img+'.jpg');
+        })
+      })
+      .catch(err=>{
+        Toast.fail(err);
       })
     }
   }
@@ -79,7 +82,7 @@ ul{
       height: 85%;
     }
     p{
-      font-size: 26px;
+      font-size: 24px;
       font-weight: 600;
       margin-top: 0;
       color: #2c3e50;

@@ -7,7 +7,7 @@
             @click-left="onClickLeft"
             fixed
         />
-        <div>
+        <div class="content">
             <p class="fixed">尊敬的各位业主/住户：</p>
             <p class="fixed">你们好！</p>
             <p class="fixed">&nbsp;&nbsp;&nbsp;&nbsp;{{this.content}}</p>
@@ -24,7 +24,7 @@
     </div>
 </template>
 <script>
-import { activityPage, sendName } from '@/api/api';
+import { activityDetail, sendName } from '@/api/api';
 import { Toast } from 'vant';
 import { Dialog } from 'vant';
 export default {
@@ -39,7 +39,7 @@ export default {
             showDia: false
         }
     },
-    mounted() {
+    created() {
         this.list();
     },
     methods:{
@@ -48,7 +48,7 @@ export default {
         },
         list() {
             this.title = this.$route.query.title;
-            activityPage({title: this.title})
+            activityDetail({title: this.title})
                 .then(res=>{
                     this.content = res.data[0].content;
                     this.people = res.data[0].people;
@@ -103,6 +103,14 @@ export default {
 }
 </script>
 <style scoped>
+.content{
+  background-color: #fff;
+  width: 100%;
+  height: 100%;
+  position: relative;
+  left: 0;
+  top: 46px;
+}
 .fixed{
     text-align: left;
     margin: 12px;
