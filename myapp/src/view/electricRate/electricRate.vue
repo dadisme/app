@@ -12,7 +12,7 @@
                 <p>用户:&nbsp;&nbsp;&nbsp;{{this.$store.state.username}}</p>
                 <p>用电量:&nbsp;&nbsp;&nbsp;{{num}}度</p>
                 <p>大约剩余电量:&nbsp;&nbsp;&nbsp;{{surplus}}度</p>
-                <p>余额:&nbsp;&nbsp;&nbsp;{{money}}元</p>
+                <p>总金额:&nbsp;&nbsp;&nbsp;{{money}}元</p>
                 <div>
                     <van-grid :column-num="3">
                             <van-grid-item

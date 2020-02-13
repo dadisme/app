@@ -85,7 +85,7 @@ export default {
   top: -14px;
 }
 .index-swiper{
-  margin-top: 46px;
+  margin-top: 60px;
   .swiper{
     height: 245px;
     width: 100%;

@@ -50,7 +50,7 @@ export default {
         deleteCrad(index) {
             Dialog.confirm({
                 title: '提示',
-                message: `确认删除银行卡${index}吗??`
+                message: `确认解除绑定银行卡${index}吗??`
             }).then(() => {
                 // on confirm
                 let params = {

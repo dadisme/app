@@ -12,7 +12,8 @@
                 <p>用户:&nbsp;&nbsp;&nbsp;{{this.$store.state.username}}</p>
                 <p>用水量:&nbsp;&nbsp;&nbsp;{{num}}立方米</p>
                 <p>剩余水量:&nbsp;&nbsp;&nbsp;{{surplus}}立方米</p>
-                <p>余额:&nbsp;&nbsp;&nbsp;{{money}}元</p>
+                <p>总金额:&nbsp;&nbsp;&nbsp;{{money}}元</p>
+                <p>余额:&nbsp;&nbsp;&nbsp;{{money-num*2.5}}元</p>
                 <div>
                     <van-grid :column-num="3">
                             <van-grid-item
@@ -236,7 +237,7 @@ export default {
             }         
         },
         showPopup() {
-            if(this.$store.state.pwd == '') {
+            if(this.$store.state.pwd == "null") {
                 this.$router.push({
                     name: 'paypwd'
                 })
